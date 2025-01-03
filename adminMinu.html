@@ -18,7 +18,13 @@
 
 <body>
     <div id="app" class="container mt-1">
-        
+
+        <!-- {{filteredMinu}} -->
+
+        <br>  <br>
+        <!-- {{minuTf}} -->
+         <h1>Admin Minu</h1>
+         <br>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -31,59 +37,74 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(min, index) in filteredMinu" 
-                data-bs-toggle="modal" data-bs-target="#exampleModal" @click="pilihData(min)">
+                <tr v-for="(min, index) in minuSudahTf" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    @click="pilihData(min)">
                     <th scope="row">{{index+1}}</th>
                     <td>{{min.tanggal| formatTanggal }}</td>
                     <td>{{min.penerima}}</td>
                     <td>{{min.nominal | formatNominal }}</td>
-                    <td><button class="btn btn-primary">edit</button></td>
+                    <td><button class="btn btn-primary">Proses Transfer</button></td>
 
                 </tr>
-       
+
             </tbody>
         </table>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog vh-100" style="background-color: aquamarine; height: 200px;" >
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Data Siap Transfer</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" v-if="selectedData.length > 0">
-                            <!-- {{selectedData}} -->
-                            <div class="input-group mb-1 mt-1">
-                                <input type="text" disabled class="form-control" placeholder="penerima pembayaran"
-                                    v-model="selectedData[0].penerima" aria-label="Recipient's username"
-                                    aria-describedby="button-addon2">
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog vh-100" style="background-color: white; height: 200px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Data Siap Transfer</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" v-if="selectedData.length > 0">
+                        <!-- {{selectedData}} -->
+                        <div class="input-group mb-1 mt-1">
+                            <input type="text" disabled class="form-control" placeholder="penerima pembayaran"
+                                v-model="tanggall" aria-label="Recipient's username"
+                                aria-describedby="button-addon2">
 
-                            </div>
-                            <div class="input-group mb-1 mt-1 ">
-                                <input type="text" disabled class="form-control" placeholder="nama bank"
-                                    v-model="selectedData[0].bank" aria-label="Recipient's username"
-                                    aria-describedby="button-addon2">
-                            </div>
-                            <div class="input-group mb-1 mt-1">
-                                <input type="text" disabled class="form-control" placeholder="no rekening pembayaran"
-                                    v-model="selectedData[0].no_rek" aria-label="Recipient's username"
-                                    aria-describedby="button-addon2">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="copyToClipboard">copy</button>
-                            </div>
-                            <div class="input-group mb-1 mt-1">
-                                <input type="text" disabled class="form-control" placeholder="nominal" v-model="selectedData[0].nominal"
-                                    aria-label="Recipient's username" aria-describedby="button-addon2">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon3" @click="copyNominal">copy</button>
-                            </div>
-                              <div class="modal-footer">
-                                        
-                                        <button type="button" class="btn btn-primary" @click="transfer">Sudah Di Transfer</button>
-                                    </div>
+                        </div>
+                        <div class="input-group mb-1 mt-1">
+                            <input type="text" disabled class="form-control" placeholder="penerima pembayaran"
+                                v-model="selectedData[0].uraian" aria-label="Recipient's username"
+                                aria-describedby="button-addon2">
+
+                        </div>
+                        <br><br><br><br><br>
+                        <div class="input-group mb-1 mt-1">
+                            <input type="text" disabled class="form-control" placeholder="penerima pembayaran"
+                                v-model="selectedData[0].penerima" aria-label="Recipient's username"
+                                aria-describedby="button-addon2">
+
+                        </div>
+                        <div class="input-group mb-1 mt-1 ">
+                            <input type="text" disabled class="form-control" placeholder="nama bank"
+                                v-model="selectedData[0].bank" aria-label="Recipient's username"
+                                aria-describedby="button-addon2">
+                        </div>
+                        <div class="input-group mb-1 mt-1">
+                            <input type="text" disabled class="form-control" placeholder="no rekening pembayaran"
+                                v-model="selectedData[0].no_rek" aria-label="Recipient's username"
+                                aria-describedby="button-addon2">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2"
+                                @click="copyToClipboard">copy</button>
+                        </div>
+                        <div class="input-group mb-5 mt-1">
+                            <input type="text" disabled class="form-control" placeholder="nominal"
+                                v-model="selectedData[0].nominal" aria-label="Recipient's username"
+                                aria-describedby="button-addon2">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon3"
+                                @click="copyNominal">copy</button>
+                        </div>
+                        <div class="modal-footer mt-5">
+
+                            <button type="button" class="btn btn-primary" @click="transfer" data-bs-dismiss="modal">Sudah Di Transfer</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
@@ -108,8 +129,9 @@
                 data: {
                     users: [],
                     reks: [],
-                    minu:[],
-                    selectedData:[],
+                    minu: [],
+                    minuTf: [],
+                    selectedData: [],
                     selectedUsers: [], // Array to store selected users
                     selectedRek: [{ "id": 1, "nama": "belly Profilsari", "bank": "Mandiri", "no_rek": 1030007056753, "status": "pk", "row": 2 }],
                     nominal: 0,
@@ -119,46 +141,61 @@
 
                 },
                 computed: {
+                    minuSudahTf() {
+    // Filter filteredMinu untuk mendapatkan data yang belum ada di minuTf
+    return this.filteredMinu.filter(item => {
+      // Cek apakah id tidak ada dalam id_trx di minuTf
+      return !this.minuTf.some(tf => tf.id_trx === item.id.toString());
+    });
+  },
+                    tanggall() {
+                        var value = this.selectedData[0].tanggal;
+                        const date = new Date(value); // Konversi ke objek Date
+                        const year = date.getFullYear();
+                        const month = String(date.getMonth() + 1).padStart(2, "0"); // Bulan dimulai dari 0
+                        const day = String(date.getDate()).padStart(2, "0");
+                        return `${year}-${month}-${day}`; // Format yyyy-mm-dd
+                    },
                     formattedNominal: {
-                get() {
-                    // Format nominal dengan titik
-                    return this.nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                },
-                set(value) {
-                    // Hapus semua titik sebelum menyimpan nilai asli
-                    this.nominal = parseInt(value.replace(/\./g, "")) || 0;
-                }
-            },
-            filteredMinu() {
-    // Filter data minu berdasarkan selectedUsers
-    if (this.selectedUsers.length === 0) {
-        return this.minu; // Jika tidak ada user yang dipilih, tampilkan semua data
-    }
-    const selectedName = this.selectedUsers[0].nama; // Ambil nama dari selectedUsers
-    console.log(selectedName);
-    return this.minu.filter(item => item.user === selectedName); // Cocokkan dengan item.user
-},
+                        get() {
+                            // Format nominal dengan titik
+                            return this.nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                        },
+                        set(value) {
+                            // Hapus semua titik sebelum menyimpan nilai asli
+                            this.nominal = parseInt(value.replace(/\./g, "")) || 0;
+                        }
+                    },
+                    filteredMinu() {
+                        // Filter data minu berdasarkan selectedUsers
+                        if (this.selectedUsers.length === 0) {
+                            return this.minu; // Jika tidak ada user yang dipilih, tampilkan semua data
+                        }
+                        const selectedName = this.selectedUsers[0].nama; // Ambil nama dari selectedUsers
+                        console.log(selectedName);
+                        return this.minu.filter(item => item.user === selectedName); // Cocokkan dengan item.user
+                    },
                 },
                 filters: {
                     formatTanggal(value) {
-    if (!value) return "";
-    const date = new Date(value); // Konversi ke objek Date
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Bulan dimulai dari 0
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`; // Format yyyy-mm-dd
-},
-            formatNominal(value) {
-                if (!value) return "";
-                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-            },
+                        if (!value) return "";
+                        const date = new Date(value); // Konversi ke objek Date
+                        const year = date.getFullYear();
+                        const month = String(date.getMonth() + 1).padStart(2, "0"); // Bulan dimulai dari 0
+                        const day = String(date.getDate()).padStart(2, "0");
+                        return `${year}-${month}-${day}`; // Format yyyy-mm-dd
+                    },
+                    formatNominal(value) {
+                        if (!value) return "";
+                        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                    },
                 },
                 methods: {
                     formatNominalInput() {
-                // Event handler untuk memastikan format diperbarui saat mengetik
-                this.formattedNominal = this.formattedNominal; // Trigger setter
-            },
-            transfer() {
+                        // Event handler untuk memastikan format diperbarui saat mengetik
+                        this.formattedNominal = this.formattedNominal; // Trigger setter
+                    },
+                    transfer() {
                         var obj = this.selectedData[0];
                         this.form = false
                         var waktu1 = Date.now();
@@ -185,7 +222,10 @@
                             success: function (resultData) {
                                 app.nominal = ''
                                 app.uraian = ''
+                                app.minu = [];
                                 app.ambilDataMinu();
+                                app.ambilDataMinuTf();
+                                
                                 //   alert("Save Complete");
                                 // app.newTodo.deadline = ''
                                 // app.newTodo.monthly = false
@@ -203,7 +243,7 @@
 
                         var waktu1 = Date.now();
                         var dateObj = new Date(waktu1); // Membuat objek Date dari timestamp
-this.form = false
+                        this.form = false
 
                         // Format tanggal menjadi tahun-bulan-tanggal
                         var tanggal = dateObj.toISOString().split('T')[0];
@@ -277,6 +317,18 @@ this.form = false
                             app.minu = json.data;
                         });
                     },
+                    ambilDataMinuTf() {
+                        this.minuTf = [];
+
+                        var url =
+                            "https://script.google.com/macros/s/AKfycbwTchCvKWMTP5xz50QimdIJglnOOOQsHq8Iai0HkN8ohCIWnhMBKppFVl9yNXvV88tX/exec?action=read&table=minuTf";
+
+                        let app = this;
+                        $.getJSON(url, function (json) {
+                            //   console.log(json.data);
+                            app.minuTf = json.data;
+                        });
+                    },
                     tambah(user) {
                         this.selectedUsers = [];
                         // Avoid duplicate entries
@@ -285,7 +337,7 @@ this.form = false
                         }
                         this.login = true;
                     },
-                    pilihData(min){
+                    pilihData(min) {
                         this.selectedData = [];
                         // Avoid duplicate entries
                         if (!this.selectedData.includes(min)) {
@@ -316,7 +368,7 @@ this.form = false
                             alert("No rekening belum tersedia untuk disalin.");
                         }
                     }, copyNominal(textToCopy) {
-                        const nominal = this.selectedData[0]?.nominal || ''; 
+                        const nominal = this.selectedData[0]?.nominal || '';
                         if (nominal) {
                             navigator.clipboard.writeText(nominal)
                                 .then(() => {
@@ -332,9 +384,10 @@ this.form = false
                     }
                 },
                 created() {
-                    this.ambilDataUser();
-                    this.ambilDataRek();
+                    // this.ambilDataUser();
+                    // this.ambilDataRek();
                     this.ambilDataMinu();
+                    this.ambilDataMinuTf();
                 },
                 mounted() {
 
