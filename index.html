@@ -39,10 +39,10 @@
                             <button class="mx-1 btn btn-outline-primary mb-1" v-for="(user, index) in users"
                                 @click="tambah(user)" data-bs-dismiss="modal">{{user.nama}}</button>
                         </div>
-                      
                     </div>
                 </div>
             </div>
+            
 
         </div>
         <div class="container" v-if="login">
@@ -191,6 +191,8 @@
                        
                             </tbody>
                         </table>
+
+                        
                     </div>
 
                 </div>
@@ -246,14 +248,15 @@
                     this.nominal = parseInt(value.replace(/\./g, "")) || 0;
                 }
             },
-                    filteredMinu() {
-                // Filter data minu berdasarkan selectedUsers
-                if (this.selectedUsers.length === 0) {
-                    return this.minu; // Jika tidak ada user yang dipilih, tampilkan semua data
-                }
-                var aaa = this.selectedUsers[0].nama
-                return this.minu.filter(item => aaa.includes(item.user));
-            },
+            filteredMinu() {
+    // Filter data minu berdasarkan selectedUsers
+    if (this.selectedUsers.length === 0) {
+        return this.minu; // Jika tidak ada user yang dipilih, tampilkan semua data
+    }
+    const selectedName = this.selectedUsers[0].nama; // Ambil nama dari selectedUsers
+    console.log(selectedName);
+    return this.minu.filter(item => item.user === selectedName); // Cocokkan dengan item.user
+},
                 },
                 filters: {
                     formatTanggal(value) {
