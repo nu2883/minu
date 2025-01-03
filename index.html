@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perjadin One</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+</head>
+
+<body>
+    <div id="app" class="container mt-1">
+        <div v-if="!login " class="vh-100 d-flex justify-content-center align-items-center bg-light"
+            style="background-image: url('kuiz5.png'); background-size: cover; background-position: center; height: 100vh; width: 100%;">
+            <button v-if="users.length > 0" class="btn btn-primary btn-lg" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">Login</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Data Minu</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <button class="mx-1 btn btn-outline-primary mb-1" v-for="(user, index) in users"
+                                @click="tambah(user)" data-bs-dismiss="modal">{{user.nama}}</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="container" v-if="login">
+            <h1>MINU <span v-if="selectedUsers.length > 0">- {{selectedUsers[0].nama}}</span></h1>
+            <hr>
+            <!-- Button trigger modal -->
+            <div v-if="selectedUsers.length > 0">
+                <!-- <button v-if="selectedUsers[0].status == 'pk'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                     Data Rekening
+                 </button> -->
+
+            </div>
+
+
+            <div v-if="login">
+
+                <div class="" v-if="selectedUsers.length > 0">
+                    <div class="form" v-if="form">
+                        <div class="formBelly" v-if="selectedUsers[0].status == 'pk'">
+                            <button v-if="selectedUsers[0].status == 'pk'" type="button" class="btn btn-primary"
+                                data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                Pilih Rekening Tujuan
+                            </button>
+                            <!-- {{selectedRek}} -->
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Data Rekening</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <button class="mx-1 btn btn-outline-primary mb-1" v-for="(rek, index) in reks"
+                                                @click="pilihRek(rek)" data-bs-dismiss="modal">{{rek.nama}}</button>
+                                        </div>
+                                        <!-- <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div> -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div v-if="selectedRek.length > 0">
+
+                                <div class="input-group mb-1 mt-1">
+                                    <input type="text" disabled class="form-control" placeholder="penerima pembayaran"
+                                        v-model="selectedRek[0].nama" aria-label="Recipient's username"
+                                        aria-describedby="button-addon2">
+    
+                                </div>
+                                <div class="input-group mb-1 mt-1 ">
+                                    <input type="text" disabled class="form-control" placeholder="nama bank"
+                                        v-model="selectedRek[0].bank" aria-label="Recipient's username"
+                                        aria-describedby="button-addon2">
+                                </div>
+                                <div class="input-group mb-1 mt-1">
+                                    <input type="text" disabled class="form-control" placeholder="no rekening pembayaran"
+                                        v-model="selectedRek[0].no_rek" aria-label="Recipient's username"
+                                        aria-describedby="button-addon2">
+                                    <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="copyToClipboard">copy</button> -->
+                                </div>
+                                <div class="input-group mb-1 mt-1">
+                                    <input type="text" class="form-control" placeholder="nominal" v-model="nominal"
+                                        aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon3" @click="copyNominal">copy</button> -->
+                                </div>
+                                <div class="input-group mb-1 mt-1">
+                                    <input type="text" class="form-control" placeholder="uraian" v-model="uraian"
+                                        aria-label="Recipient's username" aria-describedby="button-addon2">
+                                </div>
+    
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" @click="simpanRequestPK">Send
+                                        Request</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="formUmum" v-if="selectedUsers[0].status != 'pk'">
+                            <div class="input-group mb-1 mt-1">
+                                <input type="text" disabled class="form-control" placeholder="penerima pembayaran"
+                                    v-model="selectedUsers[0].nama" aria-label="Recipient's username"
+                                    aria-describedby="button-addon2">
+
+                            </div>
+                            <div class="input-group mb-1 mt-1 ">
+                                <input type="text" disabled class="form-control" placeholder="nama bank"
+                                    v-model="selectedUsers[0].bank" aria-label="Recipient's username"
+                                    aria-describedby="button-addon2">
+                            </div>
+                            <div class="input-group mb-1 mt-1">
+                                <input type="text" disabled class="form-control" placeholder="no rekening pembayaran"
+                                    v-model="selectedUsers[0].no_rek" aria-label="Recipient's username"
+                                    aria-describedby="button-addon2">
+                                <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="copyToClipboard">copy</button> -->
+                            </div>
+                            <div class="input-group mb-1 mt-1">
+                                <input type="text" class="form-control" placeholder="nominal" v-model="nominal"
+                                    aria-label="Recipient's username" aria-describedby="button-addon2">
+                                <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon3" @click="copyNominal">copy</button> -->
+                            </div>
+                            <div class="input-group mb-1 mt-1">
+                                <input type="text" class="form-control" placeholder="uraian" v-model="uraian"
+                                    aria-label="Recipient's username" aria-describedby="button-addon2">
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" @click="simpanRequest">Send
+                                    Request</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div v-if="!form">
+                        <div>
+                            <button class="btn btn-warning mb-2" @click="form=true">Buat Request</button>
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">First</th>
+                                    <th scope="col">Last</th>
+                                    <th scope="col">Handle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(min, index) in filteredMinu">
+                                    <th scope="row">{{index+1}}</th>
+                                    <td>{{min.tanggal| formatTanggal }}</td>
+                                    <td>{{min.penerima}}</td>
+                                    <td>{{min.nominal | formatNominal }}</td>
+                                </tr>
+                       
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- {{minu}} -->
+
+        </div>
+
+
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+        <!-- ajax -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+        <script>
+            // Initialize Vue instance
+            new Vue({
+                el: "#app", // Mount Vue to the element with id 'app'
+                data: {
+                    users: [],
+                    reks: [],
+                    minu:[],
+                    selectedUsers: [], // Array to store selected users
+                    selectedRek: [{ "id": 1, "nama": "belly Profilsari", "bank": "Mandiri", "no_rek": 1030007056753, "status": "pk", "row": 2 }],
+                    nominal: '',
+                    uraian: '',
+                    login: false,
+                    form: false,
+
+                },
+                computed: {
+                    filteredMinu() {
+                // Filter data minu berdasarkan selectedUsers
+                if (this.selectedUsers.length === 0) {
+                    return this.minu; // Jika tidak ada user yang dipilih, tampilkan semua data
+                }
+                var aaa = this.selectedUsers[0].nama
+                return this.minu.filter(item => aaa.includes(item.user));
+            },
+                },
+                filters: {
+                    formatTanggal(value) {
+                if (!value) return "";
+                return value.split("T")[0]; // Ambil hanya bagian tanggal
+            },
+            formatNominal(value) {
+                if (!value) return "";
+                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            },
+                },
+                methods: {
+                    simpanRequest() {
+                        var obj = this.selectedUsers[0];
+                        this.form = false
+                        var waktu1 = Date.now();
+                        var dateObj = new Date(waktu1); // Membuat objek Date dari timestamp
+
+                        // Format tanggal menjadi tahun-bulan-tanggal
+                        var tanggal = dateObj.toISOString().split('T')[0];
+                        var a2 = obj.nama;
+                        var a3 = obj.nama;
+                        var a4 = obj.bank;
+                        var a5 = obj.no_rek;
+                        var a6 = this.nominal;
+                        var a7 = this.uraian;
+
+                        var lin = `https://script.google.com/macros/s/AKfycbwTchCvKWMTP5xz50QimdIJglnOOOQsHq8Iai0HkN8ohCIWnhMBKppFVl9yNXvV88tX/exec?action=insert&table=minuData&data={"id":${waktu1},"tanggal":"${tanggal}", "user":"'${a2}","penerima":"'${a2}","bank":"'${a4}","no_rek":"${a5} ","nominal":"${a6}","uraian":"${a7}","status":true}`;
+                        // this.test = lin;
+                        let app = this;
+                        $.ajax({
+                            type: "GET",
+                            url: lin,
+                            crossDomain: true,
+                            dataType: "jsonp",
+                            dataType: "text",
+                            success: function (resultData) {
+                                app.nominal = ''
+                                app.uraian = ''
+                                
+                                //   alert("Save Complete");
+                                // app.newTodo.deadline = ''
+                                // app.newTodo.monthly = false
+                                // app.isLoading = false;
+                                //   app.ambilDataRiil();
+                            },
+                        });
+
+                        console.log("Task Berhasil di Simpan");
+                    }
+                    ,
+                    simpanRequestPK() {
+                        var obj1 = this.selectedUsers[0];
+                        var obj = this.selectedRek[0];
+
+                        var waktu1 = Date.now();
+                        var dateObj = new Date(waktu1); // Membuat objek Date dari timestamp
+this.form = false
+
+                        // Format tanggal menjadi tahun-bulan-tanggal
+                        var tanggal = dateObj.toISOString().split('T')[0];
+                        var a2 = obj1.nama;
+                        var a3 = obj.nama;
+                        var a4 = obj.bank;
+                        var a5 = obj.no_rek;
+                        var a6 = this.nominal;
+                        var a7 = this.uraian;
+
+                        var lin = `https://script.google.com/macros/s/AKfycbwTchCvKWMTP5xz50QimdIJglnOOOQsHq8Iai0HkN8ohCIWnhMBKppFVl9yNXvV88tX/exec?action=insert&table=minuData&data={"id":${waktu1},"tanggal":"${tanggal}", "user":"'${a2}","penerima":"'${a3}","bank":"'${a4}","no_rek":"${a5} ","nominal":"${a6}","uraian":"${a7}","status":true}`;
+                        // this.test = lin;
+                        let app = this;
+                        $.ajax({
+                            type: "GET",
+                            url: lin,
+                            crossDomain: true,
+                            dataType: "jsonp",
+                            dataType: "text",
+                            success: function (resultData) {
+                                app.nominal = ''
+                                app.uraian = ''
+                                //   alert("Save Complete");
+                                // app.newTodo.deadline = ''
+                                // app.newTodo.monthly = false
+                                // app.isLoading = false;
+                                //   app.ambilDataRiil();
+                            },
+                        });
+
+                        console.log("Task Berhasil di Simpan");
+                    }
+                    ,
+                    handleLogin() {
+                        alert("Login button clicked!");
+                    },
+                    ambilDataUser() {
+                        this.users = [];
+
+                        var url =
+                            "https://script.google.com/macros/s/AKfycbwTchCvKWMTP5xz50QimdIJglnOOOQsHq8Iai0HkN8ohCIWnhMBKppFVl9yNXvV88tX/exec?action=read&table=minuUser";
+
+                        let app = this;
+                        $.getJSON(url, function (json) {
+                            //   console.log(json.data);
+                            app.users = json.data;
+                        });
+                    },
+                    ambilDataRek() {
+                        this.reks = [];
+
+                        var url =
+                            "https://script.google.com/macros/s/AKfycbwTchCvKWMTP5xz50QimdIJglnOOOQsHq8Iai0HkN8ohCIWnhMBKppFVl9yNXvV88tX/exec?action=read&table=minuRek";
+
+                        let app = this;
+                        $.getJSON(url, function (json) {
+                            //   console.log(json.data);
+                            app.reks = json.data;
+                        });
+                    },
+                    ambilDataMinu() {
+                        this.minu = [];
+
+                        var url =
+                            "https://script.google.com/macros/s/AKfycbwTchCvKWMTP5xz50QimdIJglnOOOQsHq8Iai0HkN8ohCIWnhMBKppFVl9yNXvV88tX/exec?action=read&table=minuData";
+
+                        let app = this;
+                        $.getJSON(url, function (json) {
+                            //   console.log(json.data);
+                            app.minu = json.data;
+                        });
+                    },
+                    tambah(user) {
+                        this.selectedUsers = [];
+                        // Avoid duplicate entries
+                        if (!this.selectedUsers.includes(user)) {
+                            this.selectedUsers.push(user);
+                        }
+                        this.login = true;
+                    },
+                    pilihRek(user) {
+                        this.selectedRek = [];
+                        // Avoid duplicate entries
+                        if (!this.selectedRek.includes(user)) {
+                            this.selectedRek.push(user);
+                        }
+                        this.login = true;
+                    },
+                    copyToClipboard() {
+                        const textToCopy = this.selectedUsers[0]?.no_rek || ''; // Handle empty data safely
+                        if (textToCopy) {
+                            navigator.clipboard.writeText(textToCopy)
+                                .then(() => {
+                                    // alert("No rekening berhasil disalin: " + textToCopy);
+                                })
+                                .catch(err => {
+                                    console.error("Gagal menyalin teks: ", err);
+                                    alert("Gagal menyalin teks!");
+                                });
+                        } else {
+                            alert("No rekening belum tersedia untuk disalin.");
+                        }
+                    }, copyNominal(textToCopy) {
+                        const nominal = this.nominal
+                        if (nominal) {
+                            navigator.clipboard.writeText(nominal)
+                                .then(() => {
+                                    // alert("No rekening berhasil disalin: " + textToCopy);
+                                })
+                                .catch(err => {
+                                    console.error("Gagal menyalin teks: ", err);
+                                    alert("Gagal menyalin teks!");
+                                });
+                        } else {
+                            alert("tidak ada data di copy");
+                        }
+                    }
+                },
+                created() {
+                    this.ambilDataUser();
+                    this.ambilDataRek();
+                    this.ambilDataMinu();
+                },
+                mounted() {
+
+                },
+            });
+        </script>
+</body>
+
+</html>
