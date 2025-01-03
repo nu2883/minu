@@ -20,10 +20,10 @@
     <div id="app" class="container mt-1">
         <div v-if="!login " class="vh-100 d-flex justify-content-center align-items-center bg-light"
             style="background-image: url('kuiz5.png'); background-size: cover; background-position: center; height: 100vh; width: 100%;">
-            <div>
-                <button v-if="users.length > 0" class="btn btn-primary btn-lg" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal" style="width: 150px; height: 50px;" >Login</button>
 
+            <div class="d-flex justify-content-center align-items-center" style="width: 200px; height: 80px; background-color: rgb(223, 223, 111); border-radius: 10px; opacity: 0.8;">
+                <button v-if="users.length > 0" class="btn btn-primary btn-lg" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal" style="width: 180px; height: 60px; opacity: 1.0;">Login</button>
             </div>
 
             <!-- Modal -->
@@ -32,25 +32,26 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Data Minu</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">User Minu</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <button class="mx-1 btn btn-outline-primary mb-1" v-for="(user, index) in users"
                                 @click="tambah(user)" data-bs-dismiss="modal">{{user.nama}}</button>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
+                      
                     </div>
                 </div>
             </div>
 
         </div>
         <div class="container" v-if="login">
-            <h1>MINU <span v-if="selectedUsers.length > 0">- {{selectedUsers[0].nama}}</span></h1>
-            <hr>
+            <div style=" background-image: url('kuiz5.png'); background-size: cover; background-position: center;">
+                <h1 class="mx-1 mt-1 mb-1">MINU </h1>
+                <h5 class="mx-1 "><span v-if="selectedUsers.length > 0">{{selectedUsers[0].nama}}</span></h5>
+                <hr>
+                
+            </div>
             <!-- Button trigger modal -->
             <div v-if="selectedUsers.length > 0">
                 <!-- <button v-if="selectedUsers[0].status == 'pk'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -112,7 +113,9 @@
                                     <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="copyToClipboard">copy</button> -->
                                 </div>
                                 <div class="input-group mb-1 mt-1">
-                                    <input type="text" class="form-control" placeholder="nominal" v-model="nominal"
+                                    <input  type="text" class="form-control" placeholder="nominal"  placeholder="nominal" 
+                                    v-model="formattedNominal" 
+                                    @input="formatNominalInput"
                                         aria-label="Recipient's username" aria-describedby="button-addon2">
                                     <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon3" @click="copyNominal">copy</button> -->
                                 </div>
@@ -147,7 +150,8 @@
                                 <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="copyToClipboard">copy</button> -->
                             </div>
                             <div class="input-group mb-1 mt-1">
-                                <input type="text" class="form-control" placeholder="nominal" v-model="nominal"
+                                <input type="text" class="form-control" placeholder="nominal" v-model="formattedNominal" 
+                                @input="formatNominalInput"
                                     aria-label="Recipient's username" aria-describedby="button-addon2">
                                 <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon3" @click="copyNominal">copy</button> -->
                             </div>
@@ -225,13 +229,23 @@
                     minu:[],
                     selectedUsers: [], // Array to store selected users
                     selectedRek: [{ "id": 1, "nama": "belly Profilsari", "bank": "Mandiri", "no_rek": 1030007056753, "status": "pk", "row": 2 }],
-                    nominal: '',
+                    nominal: 0,
                     uraian: '',
                     login: false,
                     form: false,
 
                 },
                 computed: {
+                    formattedNominal: {
+                get() {
+                    // Format nominal dengan titik
+                    return this.nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                },
+                set(value) {
+                    // Hapus semua titik sebelum menyimpan nilai asli
+                    this.nominal = parseInt(value.replace(/\./g, "")) || 0;
+                }
+            },
                     filteredMinu() {
                 // Filter data minu berdasarkan selectedUsers
                 if (this.selectedUsers.length === 0) {
@@ -243,15 +257,23 @@
                 },
                 filters: {
                     formatTanggal(value) {
-                if (!value) return "";
-                return value.split("T")[0]; // Ambil hanya bagian tanggal
-            },
+    if (!value) return "";
+    const date = new Date(value); // Konversi ke objek Date
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Bulan dimulai dari 0
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`; // Format yyyy-mm-dd
+},
             formatNominal(value) {
                 if (!value) return "";
                 return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             },
                 },
                 methods: {
+                    formatNominalInput() {
+                // Event handler untuk memastikan format diperbarui saat mengetik
+                this.formattedNominal = this.formattedNominal; // Trigger setter
+            },
                     simpanRequest() {
                         var obj = this.selectedUsers[0];
                         this.form = false
@@ -279,7 +301,7 @@
                             success: function (resultData) {
                                 app.nominal = ''
                                 app.uraian = ''
-                                
+                                app.ambilDataMinu();
                                 //   alert("Save Complete");
                                 // app.newTodo.deadline = ''
                                 // app.newTodo.monthly = false
@@ -320,6 +342,7 @@ this.form = false
                             success: function (resultData) {
                                 app.nominal = ''
                                 app.uraian = ''
+                                app.ambilDataMinu();
                                 //   alert("Save Complete");
                                 // app.newTodo.deadline = ''
                                 // app.newTodo.monthly = false
