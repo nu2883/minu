@@ -21,7 +21,8 @@
         <div v-if="!login " class="vh-100 d-flex justify-content-center align-items-center bg-light"
             style="background-image: url('kuiz5.png'); background-size: cover; background-position: center; height: 100vh; width: 100%;">
 
-            <div class="d-flex justify-content-center align-items-center" style="width: 200px; height: 80px; background-color: rgb(223, 223, 111); border-radius: 10px; opacity: 0.8;">
+            <div class="d-flex justify-content-center align-items-center"
+                style="width: 200px; height: 80px; background-color: rgb(223, 223, 111); border-radius: 10px; opacity: 0.8;">
                 <button v-if="users.length > 0" class="btn btn-primary btn-lg" data-bs-toggle="modal"
                     data-bs-target="#exampleModal" style="width: 180px; height: 60px; opacity: 1.0;">Login</button>
             </div>
@@ -42,17 +43,19 @@
                     </div>
                 </div>
             </div>
-            
+
 
         </div>
         <div class="container" v-if="login">
             <div style=" background-image: url('kuiz5.png'); background-size: cover; background-position: center;">
-                <b><h1 class="mx-1 mt-1 mb-1">MINU </h1></b>
+                <b>
+                    <h1 class="mx-1 mt-1 mb-1">MINU </h1>
+                </b>
                 <button class="btn btn-primary" style="opacity: 0.9;">
-                <h5 class="mx-1 "><span v-if="selectedUsers.length > 0">{{selectedUsers[0].nama}}</span></h5>
-            </button>
+                    <h5 class="mx-1 "><span v-if="selectedUsers.length > 0">{{selectedUsers[0].nama}}</span></h5>
+                </button>
                 <hr>
-                
+
             </div>
             <!-- Button trigger modal -->
             <div v-if="selectedUsers.length > 0">
@@ -68,69 +71,7 @@
                 <div class="" v-if="selectedUsers.length > 0">
                     <div class="form" v-if="form">
                         <div class="formBelly" v-if="selectedUsers[0].status == 'pk'">
-                            <button v-if="selectedUsers[0].status == 'pk'" type="button" class="btn btn-primary"
-                                data-bs-toggle="modal" data-bs-target="#exampleModal1">
-                                Pilih Rekening Tujuan
-                            </button>
-                            <!-- {{selectedRek}} -->
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Data Rekening</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <button class="mx-1 btn btn-outline-primary mb-1" v-for="(rek, index) in reks"
-                                                @click="pilihRek(rek)" data-bs-dismiss="modal">{{rek.nama}}</button>
-                                        </div>
-                                        <!-- <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div> -->
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div v-if="selectedRek.length > 0">
-
-                                <div class="input-group mb-1 mt-1">
-                                    <input type="text" disabled class="form-control" placeholder="penerima pembayaran"
-                                        v-model="selectedRek[0].nama" aria-label="Recipient's username"
-                                        aria-describedby="button-addon2">
-    
-                                </div>
-                                <div class="input-group mb-1 mt-1 ">
-                                    <input type="text" disabled class="form-control" placeholder="nama bank"
-                                        v-model="selectedRek[0].bank" aria-label="Recipient's username"
-                                        aria-describedby="button-addon2">
-                                </div>
-                                <div class="input-group mb-1 mt-1">
-                                    <input type="text" disabled class="form-control" placeholder="no rekening pembayaran"
-                                        v-model="selectedRek[0].no_rek" aria-label="Recipient's username"
-                                        aria-describedby="button-addon2">
-                                    <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="copyToClipboard">copy</button> -->
-                                </div>
-                                <div class="input-group mb-1 mt-1">
-                                    <input  type="text" class="form-control" placeholder="nominal"  placeholder="nominal" 
-                                    v-model="formattedNominal" 
-                                    @input="formatNominalInput"
-                                        aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon3" @click="copyNominal">copy</button> -->
-                                </div>
-                                <div class="input-group mb-1 mt-1">
-                                    <input type="text" class="form-control" placeholder="uraian" v-model="uraian"
-                                        aria-label="Recipient's username" aria-describedby="button-addon2">
-                                </div>
-    
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-success" @click="simpanRequestPK">Send
-                                        Request</button>
-                                </div>
-                            </div>
+                            
 
                         </div>
                         <div class="formUmum" v-if="selectedUsers[0].status != 'pk'">
@@ -152,9 +93,9 @@
                                 <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="copyToClipboard">copy</button> -->
                             </div>
                             <div class="input-group mb-1 mt-1">
-                                <input type="text" class="form-control" placeholder="nominal" v-model="formattedNominal" 
-                                @input="formatNominalInput"
-                                    aria-label="Recipient's username" aria-describedby="button-addon2">
+                                <input type="text" class="form-control" placeholder="nominal" v-model="formattedNominal"
+                                    @input="formatNominalInput" aria-label="Recipient's username"
+                                    aria-describedby="button-addon2">
                                 <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon3" @click="copyNominal">copy</button> -->
                             </div>
                             <div class="input-group mb-1 mt-1">
@@ -170,31 +111,177 @@
                         </div>
 
                     </div>
-                    <div v-if="!form">
-                        <div>
-                            <button class="btn btn-warning mb-2" @click="form=true">Buat Request</button>
-                        </div>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Tanggal</th>
-                                    <th scope="col">Tujuan Transfer</th>
-                                    <th scope="col">Nominal</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(min, index) in filteredMinu">
-                                    <th scope="row">{{index+1}}</th>
-                                    <td>{{min.tanggal| formatTanggal }}</td>
-                                    <td>{{min.penerima}}</td>
-                                    <td>{{min.nominal | formatNominal }}</td>
-                                </tr>
-                       
-                            </tbody>
-                        </table>
+                    <div v-if="selectedUsers[0].status == 'pk'">
+                         <div>
+                                <button class="btn btn-warning mb-2" @click="form=true">Buat Request</button>
+                            </div>
+                            <div v-if="form">
+                                <div class="formBelly" v-if="selectedUsers[0].status == 'pk'">
+                                <button v-if="selectedUsers[0].status == 'pk'" type="button" class="btn btn-primary"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                    Pilih Rekening Tujuan
+                                </button>
+                                <!-- {{selectedRek}} -->
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Data Rekening</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <button class="mx-1 btn btn-outline-primary mb-1"
+                                                    v-for="(rek, index) in reks" @click="pilihRek(rek)"
+                                                    data-bs-dismiss="modal">{{rek.nama}}</button>
+                                            </div>
+                                            <!-- <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div v-if="selectedRek.length > 0">
+    
+                                    <div class="input-group mb-1 mt-1">
+                                        <input type="text" disabled class="form-control" placeholder="penerima pembayaran"
+                                            v-model="selectedRek[0].nama" aria-label="Recipient's username"
+                                            aria-describedby="button-addon2">
+    
+                                    </div>
+                                    <div class="input-group mb-1 mt-1 ">
+                                        <input type="text" disabled class="form-control" placeholder="nama bank"
+                                            v-model="selectedRek[0].bank" aria-label="Recipient's username"
+                                            aria-describedby="button-addon2">
+                                    </div>
+                                    <div class="input-group mb-1 mt-1">
+                                        <input type="text" disabled class="form-control"
+                                            placeholder="no rekening pembayaran" v-model="selectedRek[0].no_rek"
+                                            aria-label="Recipient's username" aria-describedby="button-addon2">
+                                        <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="copyToClipboard">copy</button> -->
+                                    </div>
+                                    <div class="input-group mb-1 mt-1">
+                                        <input type="text" class="form-control" placeholder="nominal" placeholder="nominal"
+                                            v-model="formattedNominal" @input="formatNominalInput"
+                                            aria-label="Recipient's username" aria-describedby="button-addon2">
+                                        <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon3" @click="copyNominal">copy</button> -->
+                                    </div>
+                                    <div class="input-group mb-1 mt-1">
+                                        <input type="text" class="form-control" placeholder="uraian" v-model="uraian"
+                                            aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    </div>
+    
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" @click="simpanRequestPK">Send
+                                            Request</button>
+                                    </div>
+                                </div>
 
-                        
+                            </div>
+
+                        </div>
+                        <div v-if="!form">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Tanggal</th>
+                                        <th scope="col">Tujuan Transfer</th>
+                                        <th scope="col">Nominal</th>
+                                        <th scope="col">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(min, index) in filteredMinu" @click="pilihSPBy(min)">
+                                        <th scope="row">{{index+1}}</th>
+                                        <td>{{min.tanggal| formatTanggal }}</td>
+                                        <td>{{min.penerima}}</td>
+                                        <td>{{min.nominal | formatNominal }}</td>
+                                        <td><button class="btn btn-success" data-bs-toggle="modal" 
+                                                data-bs-target="#modalSPBy">Catat SPBy</button></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="modal fade" id="modalSPBy" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Catat SPBy</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" @click="no_spby = ''"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" v-if="selectedSPBy.length > 0" >
+                                        <b><label for="">Keperluan pembayaran :</label></b>
+                                        <div class="input-group mb-1">
+                                            <input type="text" disabled class="form-control"
+                                                placeholder="penerima pembayaran" v-model="selectedSPBy[0].uraian"
+                                                aria-label="Recipient's username" aria-describedby="button-addon2">
+                                        </div>
+                                        <div class="input-group mb-1 mt-4">
+                                            <input type="text" disabled class="form-control"
+                                                placeholder="penerima pembayaran" v-model="selectedSPBy[0].penerima"
+                                                aria-label="Recipient's username" aria-describedby="button-addon2">
+                                        </div>
+                                        <div class="input-group mb-1 mt-1 ">
+                                            <input type="text" disabled class="form-control" placeholder="nama bank"
+                                                v-model="selectedSPBy[0].bank" aria-label="Recipient's username"
+                                                aria-describedby="button-addon2">
+                                        </div>
+                                        <div class="input-group mb-1 mt-1 ">
+                                            <input type="text" disabled class="form-control" placeholder="nama bank"
+                                                v-model="formattedNominalSpby" aria-label="Recipient's username"
+                                                aria-describedby="button-addon2">
+                                        </div>
+                                        <div class="input-group mb-1 mt-1 ">
+                                            <input type="text"  class="form-control" placeholder="nomor SPBY"
+                                                v-model="no_spby" aria-label="Recipient's username"
+                                                aria-describedby="button-addon2">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                                        <button type="button" class="btn btn-primary" @click="saveSPBY" data-bs-dismiss="modal">Simpan SPBy</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div v-else>
+                        <div v-if="!form">
+                            <div>
+                                <button class="btn btn-warning mb-2" @click="form=true">Buat Request</button>
+                            </div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Tanggal</th>
+                                        <th scope="col">Tujuan Transfer</th>
+                                        <th scope="col">Nominal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(min, index) in filteredMinu">
+                                        <th scope="row">{{index+1}}</th>
+                                        <td>{{min.tanggal| formatTanggal }}</td>
+                                        <td>{{min.penerima}}</td>
+                                        <td>{{min.nominal | formatNominal }}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
 
                 </div>
@@ -230,55 +317,114 @@
                 data: {
                     users: [],
                     reks: [],
-                    minu:[],
+                    minu: [],
+                    selectedSPBy: [],
                     selectedUsers: [], // Array to store selected users
                     selectedRek: [{ "id": 1, "nama": "belly Profilsari", "bank": "Mandiri", "no_rek": 1030007056753, "status": "pk", "row": 2 }],
                     nominal: 0,
                     uraian: '',
                     login: false,
                     form: false,
+                    no_spby:'',
 
                 },
                 computed: {
                     formattedNominal: {
-                get() {
-                    // Format nominal dengan titik
-                    return this.nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                },
-                set(value) {
-                    // Hapus semua titik sebelum menyimpan nilai asli
-                    this.nominal = parseInt(value.replace(/\./g, "")) || 0;
-                }
-            },
-            filteredMinu() {
-    // Filter data minu berdasarkan selectedUsers
-    if (this.selectedUsers.length === 0) {
-        return this.minu; // Jika tidak ada user yang dipilih, tampilkan semua data
-    }
-    const selectedName = this.selectedUsers[0].nama; // Ambil nama dari selectedUsers
-    console.log(selectedName);
-    return this.minu.filter(item => item.user === selectedName); // Cocokkan dengan item.user
-},
+                        get() {
+                            // Format nominal dengan titik
+                            return this.nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                        },
+                        set(value) {
+                            // Hapus semua titik sebelum menyimpan nilai asli
+                            this.nominal = parseInt(value.replace(/\./g, "")) || 0;
+                        }
+                    },
+                    formattedNominalSpby: {
+                        get() {
+                            // Format nominal dengan titik
+                            return this.selectedSPBy[0].nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                        },
+                        set(value) {
+                            // Hapus semua titik sebelum menyimpan nilai asli
+                            this.selectedSPBy[0].nominal = parseInt(value.replace(/\./g, "")) || 0;
+                        }
+                    },
+                    filteredMinu() {
+                        // Filter data minu berdasarkan selectedUsers
+                        if (this.selectedUsers.length === 0) {
+                            return this.minu; // Jika tidak ada user yang dipilih, tampilkan semua data
+                        }
+                        const selectedName = this.selectedUsers[0].nama; // Ambil nama dari selectedUsers
+                        console.log(selectedName);
+                        return this.minu.filter(item => item.user === selectedName); // Cocokkan dengan item.user
+                    },
                 },
                 filters: {
                     formatTanggal(value) {
-    if (!value) return "";
-    const date = new Date(value); // Konversi ke objek Date
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Bulan dimulai dari 0
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`; // Format yyyy-mm-dd
-},
-            formatNominal(value) {
-                if (!value) return "";
-                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-            },
+                        if (!value) return "";
+                        const date = new Date(value); // Konversi ke objek Date
+                        const year = date.getFullYear();
+                        const month = String(date.getMonth() + 1).padStart(2, "0"); // Bulan dimulai dari 0
+                        const day = String(date.getDate()).padStart(2, "0");
+                        return `${year}-${month}-${day}`; // Format yyyy-mm-dd
+                    },
+                    formatNominal(value) {
+                        if (!value) return "";
+                        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                    },
                 },
                 methods: {
                     formatNominalInput() {
-                // Event handler untuk memastikan format diperbarui saat mengetik
-                this.formattedNominal = this.formattedNominal; // Trigger setter
-            },
+                        // Event handler untuk memastikan format diperbarui saat mengetik
+                        this.formattedNominal = this.formattedNominal; // Trigger setter
+                    },
+                    saveSPBY(){
+                        if(this.no_spby){
+
+                        
+                   var obj = this.selectedSPBy[0];
+                        this.form = false
+                        var waktu1 = Date.now();
+                        var dateObj = new Date(waktu1); // Membuat objek Date dari timestamp
+
+                        // Format tanggal menjadi tahun-bulan-tanggal
+                        var tanggal = dateObj.toISOString().split('T')[0];
+                        var a2 = obj.id;
+                        var a3 = obj.penerima;
+                        var a4 = obj.bank;
+                        var a5 = obj.no_rek;
+                        var a6 = obj.nominal;
+                        var a7 = this.no_spby;
+
+                        var lin = `https://script.google.com/macros/s/AKfycbwTchCvKWMTP5xz50QimdIJglnOOOQsHq8Iai0HkN8ohCIWnhMBKppFVl9yNXvV88tX/exec?action=insert&table=minuSpby&data={"id":${waktu1},"tanggal_catat":"${tanggal}", "id_trx":"'${a2}","no_spby":"'${a7}"}`;
+                        // this.test = lin;
+                        let app = this;
+                        $.ajax({
+                            type: "GET",
+                            url: lin,
+                            crossDomain: true,
+                            dataType: "jsonp",
+                            dataType: "text",
+                            success: function (resultData) {
+                                // app.nominal = ''
+                                app.no_spby = ''
+                                app.minu = [];
+                                app.ambilDataMinu();
+                                // app.ambilDataMinuTf();
+                                
+                                //   alert("Save Complete");
+                                // app.newTodo.deadline = ''
+                                // app.newTodo.monthly = false
+                                // app.isLoading = false;
+                                //   app.ambilDataRiil();
+                            },
+                        });
+
+                        console.log("Task Berhasil di Simpan");
+                        }else{
+                            alert("no SPBY wajid di isi")
+                        }
+                    },
                     simpanRequest() {
                         var obj = this.selectedUsers[0];
                         this.form = false
@@ -324,7 +470,7 @@
 
                         var waktu1 = Date.now();
                         var dateObj = new Date(waktu1); // Membuat objek Date dari timestamp
-this.form = false
+                        this.form = false
 
                         // Format tanggal menjadi tahun-bulan-tanggal
                         var tanggal = dateObj.toISOString().split('T')[0];
@@ -390,7 +536,7 @@ this.form = false
                         this.minu = [];
 
                         var url =
-                            "https://script.google.com/macros/s/AKfycbwTchCvKWMTP5xz50QimdIJglnOOOQsHq8Iai0HkN8ohCIWnhMBKppFVl9yNXvV88tX/exec?action=read&table=minuData";
+                            "https://script.google.com/macros/s/AKfycbwTchCvKWMTP5xz50QimdIJglnOOOQsHq8Iai0HkN8ohCIWnhMBKppFVl9yNXvV88tX/exec?action=read&table=querySPBy";
 
                         let app = this;
                         $.getJSON(url, function (json) {
@@ -411,6 +557,14 @@ this.form = false
                         // Avoid duplicate entries
                         if (!this.selectedRek.includes(user)) {
                             this.selectedRek.push(user);
+                        }
+                        this.login = true;
+                    },
+                    pilihSPBy(aaa) {
+                        this.selectedSPBy = [];
+                        // Avoid duplicate entries
+                        if (!this.selectedSPBy.includes(aaa)) {
+                            this.selectedSPBy.push(aaa);
                         }
                         this.login = true;
                     },
