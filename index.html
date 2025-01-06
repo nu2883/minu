@@ -29,6 +29,12 @@
             animation: grow 3.5s ease-in-out infinite; /* Animasi terus-menerus */
             /* animation-fill-mode: forwards; Agar tetap pada ukuran akhir setelah animasi selesai */
         }
+
+        @media screen and (max-width: 768px) {
+    .tabel1 {
+        font-size: 12px; /* Ukuran font untuk ponsel */
+    }
+}
         </style>
 </head>
 
@@ -207,7 +213,7 @@
 
                         </div>
                         <div v-if="!form">
-                            <table class="table table-striped">
+                            <table class="table table-striped tabel1">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -223,7 +229,7 @@
                                         <td>{{min.tanggal| formatTanggal }}</td>
                                         <td>{{min.penerima}}</td>
                                         <td>{{min.nominal | formatNominal }}</td>
-                                        <td><button class="btn btn-success btn-xs" data-bs-toggle="modal" 
+                                        <td><button class="btn btn-success btn-xs tabel1" data-bs-toggle="modal" 
                                                 data-bs-target="#modalSPBy">Catat SPBy</button></td>
                                     </tr>
 
@@ -284,7 +290,7 @@
                                 <button class="btn btn-warning mb-2" @click="form=true">Buat Request</button>
                                 <button class="btn btn-danger mb-2" @click="login=false">Logout</button>
                             </div>
-                            <table class="table table-striped">
+                            <table class="table table-striped tabel1">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
