@@ -13,7 +13,23 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
-
+    <style>
+        /* Keyframes untuk animasi membesar */
+        @keyframes grow {
+            from {
+                transform: scale(0.3); /* Ukuran awal */
+            }
+            to {
+                transform: scale(1.5); /* Ukuran akhir (2x lipat) */
+            }
+        }
+        
+        /* Tambahkan animasi ke elemen */
+        .animate-grow {
+            animation: grow 3.5s ease-in-out infinite; /* Animasi terus-menerus */
+            /* animation-fill-mode: forwards; Agar tetap pada ukuran akhir setelah animasi selesai */
+        }
+        </style>
 </head>
 
 <body>
@@ -21,11 +37,12 @@
         <div v-if="!login " class="vh-100 d-flex justify-content-center align-items-center bg-light"
             style="background-image: url('kuiz5.png'); background-size: cover; background-position: center; height: 100vh; width: 100%;">
 
-            <div class="d-flex justify-content-center align-items-center"
-                style="width: 200px; height: 80px; background-color: rgb(223, 223, 111); border-radius: 10px; opacity: 0.8;">
-                <button v-if="users.length > 0" class="btn btn-primary btn-lg" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal" style="width: 180px; height: 60px; opacity: 1.0;">Login</button>
-            </div>
+            <div 
+            class="d-flex justify-content-center align-items-center animate-grow" 
+            style="width: 200px; height: 80px; background-color: rgb(223, 223, 111); border-radius: 10px; opacity: 0.8;">
+            <button v-if="users.length > 0" class="btn btn-primary btn-lg" data-bs-toggle="modal"
+                data-bs-target="#exampleModal" style="width: 180px; height: 60px; opacity: 1.0;">Login</button>
+        </div>
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -112,9 +129,10 @@
 
                     </div>
                     <div v-if="selectedUsers[0].status == 'pk'">
-                         <div>
-                                <button class="btn btn-warning mb-2" @click="form=true">Buat Request</button>
-                            </div>
+                        <div class="d-flex justify-content-between align-items-center" style="width: 100%; padding: 10px;">
+                            <button class="btn btn-warning mb-2" @click="form=true">Buat Request</button>
+                            <button class="btn btn-danger mb-2" @click="login=false">Logout</button>
+                        </div>
                             <div v-if="form">
                                 <div class="formBelly" v-if="selectedUsers[0].status == 'pk'">
                                 <button v-if="selectedUsers[0].status == 'pk'" type="button" class="btn btn-primary"
@@ -258,8 +276,9 @@
                     </div>
                     <div v-else>
                         <div v-if="!form">
-                            <div>
+                            <div class="d-flex justify-content-between align-items-center" style="width: 100%; padding: 10px;">
                                 <button class="btn btn-warning mb-2" @click="form=true">Buat Request</button>
+                                <button class="btn btn-danger mb-2" @click="login=false">Logout</button>
                             </div>
                             <table class="table table-striped">
                                 <thead>
