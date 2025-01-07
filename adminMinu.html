@@ -261,6 +261,13 @@
         >
           <div>
             <div v-if="!form">
+                <div class="ml-auto" style="height: 20px; background-color: aqua; ">
+                    <span class="ml-auto p-1">
+                        Total Nominal yang belum SPBy : Rp <b> {{totalNominal | formatNominal}}</b>
+
+                    </span>
+                </div>
+                <!-- {{minuBlm}} -->
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -484,6 +491,9 @@
           no_spby: "",
         },
         computed: {
+            totalNominal() {
+      return this.minuBlm.reduce((total, item) => total + item.nominal, 0);
+    },
           formattedNominalSpby: {
             get() {
               // Format nominal dengan titik
