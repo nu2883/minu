@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Proses Keuangan</title>
+  <title>Dashboard Keuangan 2025</title>
   <!-- Bootstrap CSS CDN -->
   <link 
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
@@ -33,129 +33,163 @@
     .cross-icon {
       color: red;
     }
-    /* *,  table, td{
-      border: 1px red solid;
-    } */
+
+    /* Default CSS untuk ukuran layar besar (desktop) */
+    /* Responsif untuk layar kecil dan menengah */
+    @media (max-width: 767px) {
+      .custom-table {
+        font-size: 0.7rem;
+      }
+      .custom{
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .custom-table, td, tr {
+        font-size: 1.3rem; /* Ukuran font lebih besar untuk tablet dan desktop */
+      }
+      .custom{
+        font-size: 1.25rem;
+        font-weight: 700;
+        
+      }
+     
+    }
   </style>
 </head>
 <body>
   <div id="app">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg" style="background-color: aquamarine;">
       <div class="container">
+        <!-- Logo di kiri -->
         <a class="navbar-brand" href="#">
           <i class="fas fa-chart-pie"></i> Dashboard Keuangan
         </a>
+        
+        <!-- Tombol untuk navbar di perangkat kecil -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
           <span class="navbar-toggler-icon"></span>
         </button>
+    
+        <!-- Menu navigasi di kanan -->
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
+          <ul class="navbar-nav ms-auto"> <!-- ms-auto digunakan untuk memindahkan navbar ke kanan -->
             <li class="nav-item">
-              <a class="nav-link active" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">SPD</a>
+              <a class="nav-link" target="_blank" href="https://nu2883.github.io/perjadinOne/">SPD</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">KKP</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Realisasi</a>
+              <a class="nav-link" target="_blank" href="https://docs.google.com/spreadsheets/d/1TcBh9yxRhjLCitmOqNWvGhmAlyaG5eIEOSQ0nGj-BeI/edit?gid=1692963314#gid=1692963314">Realisasi</a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
+    
 
     <!-- Dashboard -->
     <div class="container my-4">
       <header class="mb-4">
-        <h1 class="text-center">Dashboard Proses Keuangan</h1>
+        <h1 class="text-center">Dashboard Keuangan 2025</h1>
       </header>
 
       <!-- Statistik -->
       <div class="row mb-4">
-        <div class="col-md-4" v-for="stat in stats" :key="stat.label">
-          <div class="card text-center">
+        <div class="col-md-4 mt-1" v-for="stat in stats" :key="stat.label">
+          <a :href="stat.link" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+          <div class="card text-center ">
             <div class="card-body">
               <i :class="['icon-card', stat.icon, stat.iconColor]"></i>
-              <h5 class="card-title mt-2">{{ stat.label }}</h5>
-              <p class="card-text fs-4 fw-bold">{{ stat.value }}</p>
+              <h5 class="card-title mt-2 ">{{ stat.label }}</h5>
+              <p class="card-text fs-4 fw-bold  ">{{ stat.value }}</p>
             </div>
           </div>
+        </a>
         </div>
       </div>
 
- <br><br><br>
- <div class="card">
-  <div class="card-header">
-    <h5 class="mb-0" style="font-size: 1rem;"><i class="fas fa-calendar"></i> Monitoring Transaksi per Bulan</h5>
-  </div>
-  
-  <div class="card-body">
-    <!-- Membuat tabel menjadi responsif pada tampilan kecil dengan overflow-x -->
-    <div class="table-responsive">
-      <table class="table table-striped table-sm" style="background-color: #ff9800; height: 100px; width: 100%; font-size: 0.7rem; border: black solid 1px;">
-        <thead>
-          <tr>
-            <th style="font-size: 0.9rem; text-align: center;">Transaksi</th>
-            <th v-for="(item, index) in monthlyTransactions" :key="index" style="text-align: center;">
-              {{ item.month }}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="text-align: left;">Transaksi KKP</td>
-            <td v-for="(status, index) in monthlyKKP" :key="'kkp-' + index" style="text-align: center;">
-              <i :class="[status ? 'fas fa-check-circle check-icon' : 'fas fa-times-circle cross-icon']"></i>
-            </td>
-          </tr>
-          <tr>
-            <td style="text-align: left;">Transaksi Digipay</td>
-            <td v-for="(status, index) in monthlyDigipay" :key="'digipay-' + index" style="text-align: center;">
-              <i :class="[status ? 'fas fa-check-circle check-icon' : 'fas fa-times-circle cross-icon']"></i>
-            </td>
-          </tr>
-          <tr>
-            <td style="text-align: left;">Transaksi CMS</td>
-            <td v-for="(status, index) in monthlyCMS" :key="'cms-' + index" style="text-align: center;">
-              <i :class="[status ? 'fas fa-check-circle check-icon' : 'fas fa-times-circle cross-icon']"></i>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- Monitoring Transaksi per Bulan -->
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0" style="font-size: 1rem;"><i class="fas fa-calendar"></i> Monitoring Transaksi per Bulan</h5>
+        </div>
+        <div class="card-body">
+          <!-- Membuat tabel menjadi responsif pada tampilan kecil dengan overflow-x -->
+          <div class="table-responsive">
+            <table class="custom-table table table-striped table-sm" style="background-color: #ff9800; border-collapse: collapse; width: 100%; font-size: 0.7rem; border: 1px solid black;">
+              <thead>
+                <tr>
+                  <th style="font-size: 0.9rem; text-align: center;">Transaksi</th>
+                  <th v-for="(item, index) in monthlyTransactions" :key="index" style="text-align: center;">
+                    {{ item.month }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align: left;">Trx KKP</td>
+                  <td v-for="(status, index) in monthlyKKP" :key="'kkp-' + index" style="text-align: center;">
+                    <i v-if="status !== 'none'" :class="[
+                    status === 'true' ? 'fas fa-check-circle check-icon' :
+                    'fas fa-times-circle cross-icon'
+                  ]"></i>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="text-align: left;">Trx Digipay</td>
+                  <td v-for="(status, index) in monthlyDigipay" :key="'digipay-' + index" style="text-align: center;">
+                   <i v-if="status !== 'none'" :class="[
+    status === 'true' ? 'fas fa-check-circle check-icon' :
+    'fas fa-times-circle cross-icon'
+  ]"></i>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="text-align: left;">Trx CMS</td>
+                  <td v-for="(status, index) in monthlyCMS" :key="'cms-' + index" style="text-align: center;">
+                   <i v-if="status !== 'none'" :class="[
+    status === 'true' ? 'fas fa-check-circle check-icon' :
+    'fas fa-times-circle cross-icon'
+  ]"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  
-</div>
-
 
   <!-- Bootstrap JS CDN -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
   <script>
     const { createApp } = Vue;
 
     createApp({
       data() {
         const generateRandomStatuses = (length) => {
-          return Array.from({ length }, () => Math.random() > 0.5);
-        };
+  const statuses = ['true', 'false', 'none']; // Daftar status yang tersedia
+  return Array.from({ length }, () => statuses[Math.floor(Math.random() * statuses.length)]);
+};
 
         return {
           currentMonth: new Date().getMonth(), // Current month (0-11)
           stats: [
-            { label: 'SPD on Proses', value: '10 Dokumen', icon: 'fas fa-file-alt', iconColor: 'spd-icon' },
+            { label: 'SPD on Proses', value: '10 Dokumen', icon: 'fas fa-file-alt', iconColor: 'spd-icon', link:'https://nu2883.github.io/perjadinOne/' },
             { label: 'KKP on Proses', value: '15 Dokumen', icon: 'fas fa-folder-open', iconColor: 'kkp-icon' },
-            { label: 'Total Realisasi', value: 'Rp 500,000,000', icon: 'fas fa-check-circle', iconColor: 'realisasi-icon' },
+            { label: 'Total Realisasi', value: 'Rp 500,000,000', icon: 'fas fa-check-circle', iconColor: 'realisasi-icon', link:'https://docs.google.com/spreadsheets/d/1TcBh9yxRhjLCitmOqNWvGhmAlyaG5eIEOSQ0nGj-BeI/edit?gid=1692963314#gid=1692963314' },
           ],
           monthlyTransactions: [
-  { month: 'Jan' }, { month: 'Feb' }, { month: 'Mar' }, { month: 'Apr' },
-  { month: 'Mei' }, { month: 'Jun' }, { month: 'Jul' }, { month: 'Agu' },
-  { month: 'Sep' }, { month: 'Okt' }, { month: 'Nov' }, { month: 'Des' }
-],
-
+            { month: 'Jan' }, { month: 'Feb' }, { month: 'Mar' }, { month: 'Apr' },
+            { month: 'Mei' }, { month: 'Jun' }, { month: 'Jul' }, { month: 'Agu' },
+            { month: 'Sep' }, { month: 'Okt' }, { month: 'Nov' }, { month: 'Des' }
+          ],
           monthlyKKP: generateRandomStatuses(12), // Random statuses for KKP
           monthlyDigipay: generateRandomStatuses(12), // Random statuses for Digipay
           monthlyCMS: generateRandomStatuses(12), // Random statuses for CMS
