@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Keuangan 2025</title>
   <!-- Bootstrap CSS CDN -->
-  <link 
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
-    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- FontAwesome Icons CDN -->
-  <link 
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" 
-    rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <!-- Vue.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
   <style>
     .icon-card {
       font-size: 2.5rem;
     }
-    .spd-icon { color: #ff9800; }
-    .kkp-icon { color: #03a9f4; }
-    .realisasi-icon { color: #4caf50; }
+
+    .spd-icon {
+      color: #ff9800;
+    }
+
+    .kkp-icon {
+      color: #03a9f4;
+    }
+
+    .realisasi-icon {
+      color: #4caf50;
+    }
 
     /* Styling for the current month's table */
     .highlight-table {
       transform: scale(1.5);
       transition: transform 0.3s ease;
     }
+
     .check-icon {
       color: green;
     }
+
     .cross-icon {
       color: red;
     }
@@ -40,24 +48,31 @@
       .custom-table {
         font-size: 0.7rem;
       }
-      .custom{
+
+      .custom {
         font-size: 0.9rem;
       }
     }
 
     @media (min-width: 768px) {
-      .custom-table, td, tr {
-        font-size: 1.3rem; /* Ukuran font lebih besar untuk tablet dan desktop */
+
+      .custom-table,
+      td,
+      tr {
+        font-size: 1.3rem;
+        /* Ukuran font lebih besar untuk tablet dan desktop */
       }
-      .custom{
+
+      .custom {
         font-size: 1.25rem;
         font-weight: 700;
-        
+
       }
-     
+
     }
   </style>
 </head>
+
 <body>
   <div id="app">
     <!-- Navbar -->
@@ -67,12 +82,12 @@
         <a class="navbar-brand" href="#">
           <i class="fas fa-chart-pie"></i> Dashboard Keuangan
         </a>
-        
+
         <!-- Tombol untuk navbar di perangkat kecil -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
           <span class="navbar-toggler-icon"></span>
         </button>
-    
+
         <!-- Menu navigasi di kanan -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto"> <!-- ms-auto digunakan untuk memindahkan navbar ke kanan -->
@@ -83,34 +98,80 @@
               <a class="nav-link" href="#">KKP</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" target="_blank" href="https://docs.google.com/spreadsheets/d/1TcBh9yxRhjLCitmOqNWvGhmAlyaG5eIEOSQ0nGj-BeI/edit?gid=1692963314#gid=1692963314">Realisasi</a>
+              <a class="nav-link" target="_blank"
+                href="https://docs.google.com/spreadsheets/d/1TcBh9yxRhjLCitmOqNWvGhmAlyaG5eIEOSQ0nGj-BeI/edit?gid=1692963314#gid=1692963314">Realisasi</a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-    
+
 
     <!-- Dashboard -->
     <div class="container my-4">
       <header class="mb-4">
         <h1 class="text-center">Dashboard Keuangan 2025</h1>
       </header>
-
+{{stats}}
       <!-- Statistik -->
       <div class="row mb-4">
         <div class="col-md-4 mt-1" v-for="stat in stats" :key="stat.label">
           <a :href="stat.link" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-          <div class="card text-center ">
-            <div class="card-body">
-              <i :class="['icon-card', stat.icon, stat.iconColor]"></i>
-              <h5 class="card-title mt-2 ">{{ stat.label }}</h5>
-              <p class="card-text fs-4 fw-bold  ">{{ stat.value }}</p>
+            <div class="card text-center ">
+              <div class="card-body">
+                <i :class="['icon-card', stat.icon, stat.iconColor]"></i>
+                <h5 class="card-title mt-2 ">{{ stat.label }}</h5>
+                <p class="card-text fs-4 fw-bold  ">{{ stat.value }}</p>
+              </div>
             </div>
-          </div>
-        </a>
+          </a>
+          {{['icon-card', stat.icon, stat.iconColor]}}
         </div>
       </div>
+<!-- manual -->
+      <div class="row mb-4">
+        <div class="col-md-4 mt-1" >
+          <a href="#" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="card text-center ">
+              <div class="card-body">
+                <i :class="[iconCard, 'fas', 'fa-folder-open', 'kkp-icon']"></i>
+                <h5 class="card-title mt-2 ">SPD on Proses</h5>
+                <p class="card-text fs-4 fw-bold  ">value</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-4 mt-1" >
+          <a href="#" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="card text-center ">
+              <div class="card-body">
+                <i class=""></i>
+                <h5 class="card-title mt-2 ">label</h5>
+                <p class="card-text fs-4 fw-bold  ">value</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-4 mt-1" >
+          <a href="#" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="card text-center ">
+              <div class="card-body">
+                <i class=""></i>
+                <h5 class="card-title mt-2 ">label</h5>
+                <p class="card-text fs-4 fw-bold  ">value</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+
 
       <!-- Monitoring Transaksi per Bulan -->
       <div class="card">
@@ -120,7 +181,8 @@
         <div class="card-body">
           <!-- Membuat tabel menjadi responsif pada tampilan kecil dengan overflow-x -->
           <div class="table-responsive">
-            <table class="custom-table table table-striped table-sm" style="background-color: #ff9800; border-collapse: collapse; width: 100%; font-size: 0.7rem; border: 1px solid black;">
+            <table class="custom-table table table-striped table-sm"
+              style="background-color: #ff9800; border-collapse: collapse; width: 100%; font-size: 0.7rem; border: 1px solid black;">
               <thead>
                 <tr>
                   <th style="font-size: 0.9rem; text-align: center;">Transaksi</th>
@@ -132,33 +194,36 @@
               <tbody>
                 <tr>
                   <td style="text-align: left;">Trx KKP</td>
-                  <td v-for="(status, index) in monthlyKKP" :key="'kkp-' + index" style="text-align: center;">
+                  <td style="text-align: center;" v-for="(status, index) in monthlyKKP1" :key="index">
                     <i v-if="status !== 'none'" :class="[
-                    status === 'true' ? 'fas fa-check-circle check-icon' :
-                    'fas fa-times-circle cross-icon'
-                  ]"></i>
+                        status === true ? 'fas fa-check-circle check-icon' :
+                        'fas fa-times-circle cross-icon'
+                      ]"></i>
                   </td>
                 </tr>
                 <tr>
                   <td style="text-align: left;">Trx Digipay</td>
-                  <td v-for="(status, index) in monthlyDigipay" :key="'digipay-' + index" style="text-align: center;">
-                   <i v-if="status !== 'none'" :class="[
-    status === 'true' ? 'fas fa-check-circle check-icon' :
-    'fas fa-times-circle cross-icon'
-  ]"></i>
+                  <td style="text-align: center;" v-for="(status, index) in monthlyDigipay1" :key="index">
+                    <i v-if="status !== 'none'" :class="[
+                        status === true ? 'fas fa-check-circle check-icon' :
+                        'fas fa-times-circle cross-icon'
+                      ]"></i>
                   </td>
                 </tr>
                 <tr>
                   <td style="text-align: left;">Trx CMS</td>
-                  <td v-for="(status, index) in monthlyCMS" :key="'cms-' + index" style="text-align: center;">
-                   <i v-if="status !== 'none'" :class="[
-    status === 'true' ? 'fas fa-check-circle check-icon' :
-    'fas fa-times-circle cross-icon'
-  ]"></i>
+                  <td style="text-align: center;" v-for="(status, index) in monthlyCMS1" :key="index">
+                    <i v-if="status !== 'none'" :class="[
+                        status === true ? 'fas fa-check-circle check-icon' :
+                        'fas fa-times-circle cross-icon'
+                      ]"></i>
                   </td>
                 </tr>
               </tbody>
             </table>
+
+            {{monthlyKKP1}} <br><br>
+            {{dataDash}}
           </div>
         </div>
       </div>
@@ -168,41 +233,108 @@
   <!-- Bootstrap JS CDN -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+  <!-- ajax -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
   <script>
     const { createApp } = Vue;
 
     createApp({
       data() {
         const generateRandomStatuses = (length) => {
-  const statuses = ['true', 'false', 'none']; // Daftar status yang tersedia
-  return Array.from({ length }, () => statuses[Math.floor(Math.random() * statuses.length)]);
-};
+          const statuses = ['true', 'false', 'none']; // Daftar status yang tersedia
+          return Array.from({ length }, () => statuses[Math.floor(Math.random() * statuses.length)]);
+        };
+        // const monthlyKKP1 = this.dataDash;
+
 
         return {
+          dataDash: [],
           currentMonth: new Date().getMonth(), // Current month (0-11)
+          monthlyKKP: ["false", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none",],
+          monthlyDigipay: ["false", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none",],
+          monthlyCMS: ["true", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none",],
           stats: [
-            { label: 'SPD on Proses', value: '10 Dokumen', icon: 'fas fa-file-alt', iconColor: 'spd-icon', link:'https://nu2883.github.io/perjadinOne/' },
-            { label: 'KKP on Proses', value: '15 Dokumen', icon: 'fas fa-folder-open', iconColor: 'kkp-icon' },
-            { label: 'Total Realisasi', value: 'Rp 500,000,000', icon: 'fas fa-check-circle', iconColor: 'realisasi-icon', link:'https://docs.google.com/spreadsheets/d/1TcBh9yxRhjLCitmOqNWvGhmAlyaG5eIEOSQ0nGj-BeI/edit?gid=1692963314#gid=1692963314' },
+            { label: 'SPD on Proses', value: '13 Dokumen', icon: 'fas fa-file-alt', iconColor: 'spd-icon', link: 'https://nu2883.github.io/perjadinOne/' },
+            { label: 'KKP on Proses', value: '1 Dokumen', icon: 'fas fa-folder-open', iconColor: 'kkp-icon' },
+            { label: 'Total Realisasi', value: 'Rp 18,378,020', icon: 'fas fa-check-circle', iconColor: 'realisasi-icon', link: 'https://docs.google.com/spreadsheets/d/1TcBh9yxRhjLCitmOqNWvGhmAlyaG5eIEOSQ0nGj-BeI/edit?gid=1692963314#gid=1692963314' },
           ],
           monthlyTransactions: [
             { month: 'Jan' }, { month: 'Feb' }, { month: 'Mar' }, { month: 'Apr' },
             { month: 'Mei' }, { month: 'Jun' }, { month: 'Jul' }, { month: 'Agu' },
             { month: 'Sep' }, { month: 'Okt' }, { month: 'Nov' }, { month: 'Des' }
           ],
-          monthlyKKP: generateRandomStatuses(12), // Random statuses for KKP
-          monthlyDigipay: generateRandomStatuses(12), // Random statuses for Digipay
-          monthlyCMS: generateRandomStatuses(12), // Random statuses for CMS
+          // monthlyKKP: generateRandomStatuses(12), // Random statuses for KKP
+          // monthlyDigipay: generateRandomStatuses(12), // Random statuses for Digipay
+          // monthlyCMS: generateRandomStatuses(12), // Random statuses for CMS
         };
       },
       computed: {
+        monthlyKKP1() {
+          const data = this.dataDash[3];
+          if (data && typeof data === "object") {
+            const values = Object.values(data); // Mengubah objek menjadi array nilai
+            return values.slice(0, 12); // Ambil 10 elemen pertama
+          } else {
+
+            return [];
+          }
+        },
+        monthlyDigipay1() {
+          const data = this.dataDash[4];
+          if (data && typeof data === "object") {
+            const values = Object.values(data); // Mengubah objek menjadi array nilai
+            return values.slice(0, 12); // Ambil 10 elemen pertama
+          } else {
+
+            return [];
+          }
+        },
+        monthlyCMS1() {
+          const data = this.dataDash[5];
+          if (data && typeof data === "object") {
+            const values = Object.values(data); // Mengubah objek menjadi array nilai
+            return values.slice(0, 12); // Ambil 10 elemen pertama
+          } else {
+
+            return [];
+          }
+        },
         isCurrentMonth() {
           return (index) => {
             return index === this.currentMonth;
           };
         }
+      },
+      methods: {
+
+        ambilDash() {
+          this.dataDash = [];
+
+          var url =
+            "https://script.google.com/macros/s/AKfycbwTchCvKWMTP5xz50QimdIJglnOOOQsHq8Iai0HkN8ohCIWnhMBKppFVl9yNXvV88tX/exec?action=read&table=dash";
+
+          let app = this;
+          $.getJSON(url, function (json) {
+            //   console.log(json.data);
+            app.dataDash = json.data;
+          });
+        },
+      },
+      created() {
+        this.ambilDash();
       }
+
     }).mount('#app');
   </script>
 </body>
+
 </html>
