@@ -218,7 +218,7 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Tanggal</th>
-                                        <th scope="col">Tujuan Transfer</th>
+                                        <th scope="col">Uraian</th>
                                         <th scope="col">Nominal</th>
                                         <th scope="col">Aksi</th>
                                     </tr>
@@ -227,7 +227,7 @@
                                     <tr v-for="(min, index) in filteredMinu" @click="pilihSPBy(min)">
                                         <th scope="row">{{index+1}}</th>
                                         <td>{{min.tanggal| formatTanggal }}</td>
-                                        <td>{{min.penerima}}</td>
+                                        <td>{{min.uraian}}</td>
                                         <td>{{min.nominal | formatNominal }}</td>
                                         <td><button class="btn btn-success btn-xs tabel1" data-bs-toggle="modal" 
                                                 data-bs-target="#modalSPBy">Catat SPBy</button></td>
@@ -295,7 +295,7 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Tanggal</th>
-                                        <th scope="col">Tujuan Transfer</th>
+                                        <th scope="col">Uraian</th>
                                         <th scope="col">Nominal</th>
                                     </tr>
                                 </thead>
@@ -303,7 +303,7 @@
                                     <tr v-for="(min, index) in filteredMinu">
                                         <th scope="row">{{index+1}}</th>
                                         <td>{{min.tanggal| formatTanggal }}</td>
-                                        <td>{{min.penerima}}</td>
+                                        <td>{{min.uraian}}</td>
                                         <td>{{min.nominal | formatNominal }}</td>
                                     </tr>
 
