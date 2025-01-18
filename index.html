@@ -457,11 +457,16 @@
                     simpanRequest() {
                         var obj = this.selectedUsers[0];
                         this.form = false
-                        var waktu1 = Date.now();
-                        var dateObj = new Date(waktu1); // Membuat objek Date dari timestamp
+                      var waktu1 = 1737241101234; // Contoh timestamp
+var dateObj = new Date(waktu1); // Membuat objek Date dari timestamp
 
-                        // Format tanggal menjadi tahun-bulan-tanggal
-                        var tanggal = dateObj.toISOString().split('T')[0];
+// Konversi waktu ke WIB (Asia/Jakarta)
+var options = { timeZone: "Asia/Jakarta", year: "numeric", month: "2-digit", day: "2-digit" };
+var tanggalIndonesia = new Intl.DateTimeFormat("id-ID", options).format(dateObj);
+
+// Ubah format tanggal ke format tahun-bulan-tanggal (YYYY-MM-DD)
+var parts = tanggalIndonesia.split("/");
+var tanggal = `${parts[2]}-${parts[1]}-${parts[0]}`; // Format YYYY-MM-DD
                         var a2 = obj.nama;
                         var a3 = obj.nama;
                         var a4 = obj.bank;
@@ -496,13 +501,18 @@
                     simpanRequestPK() {
                         var obj1 = this.selectedUsers[0];
                         var obj = this.selectedRek[0];
-
-                        var waktu1 = Date.now();
-                        var dateObj = new Date(waktu1); // Membuat objek Date dari timestamp
                         this.form = false
 
-                        // Format tanggal menjadi tahun-bulan-tanggal
-                        var tanggal = dateObj.toISOString().split('T')[0];
+                   var waktu1 = 1737241101234; // Contoh timestamp
+var dateObj = new Date(waktu1); // Membuat objek Date dari timestamp
+
+// Konversi waktu ke WIB (Asia/Jakarta)
+var options = { timeZone: "Asia/Jakarta", year: "numeric", month: "2-digit", day: "2-digit" };
+var tanggalIndonesia = new Intl.DateTimeFormat("id-ID", options).format(dateObj);
+
+// Ubah format tanggal ke format tahun-bulan-tanggal (YYYY-MM-DD)
+var parts = tanggalIndonesia.split("/");
+var tanggal = `${parts[2]}-${parts[1]}-${parts[0]}`; // Format YYYY-MM-DD
                         var a2 = obj1.nama;
                         var a3 = obj.nama;
                         var a4 = obj.bank;
