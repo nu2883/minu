@@ -262,13 +262,70 @@
         >
           <div>
             <div v-if="!form">
-              <div class="ml-auto" style="height: 20px; background-color: aqua">
-                <span class="ml-auto p-1">
+              <div
+                class="ml-auto mb-2"
+                style="height: 20px; background-color: aqua"
+              >
+                <span class="ml-auto p-2">
                   Total Nominal yang belum SPBy : Rp
                   <b> {{totalNominal | formatNominal}}</b>
                 </span>
               </div>
-              <!-- {{minuBlm}} -->
+              <div class="accordion" id="userAccordion">
+                <!-- Loop through kelompokUser to create an accordion item for each user -->
+                <div
+                  class="accordion-item"
+                  v-for="(userGroup, index) in kelompokUser"
+                  :key="userGroup.user"
+                  style="margin-bottom: 0px; margin-top: 0px"
+                >
+                  <div class="accordion-header mb-1" :id="'heading' + index">
+                    <button
+                      class="accordion-button btn btn-outline-primary"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      :data-bs-target="'#collapse' + index"
+                      aria-expanded="true"
+                      :aria-controls="'collapse' + index"
+                      style="font-size: 12px"
+                    >
+                      <b>{{ userGroup.user }} </b>- Total Nominal: {{
+                      userGroup.totalNominal | formatNominal }}
+                    </button>
+                  </div>
+                  <div
+                    :id="'collapse' + index"
+                    class="accordion-collapse collapse"
+                    :aria-labelledby="'heading' + index"
+                    data-bs-parent="#userAccordion"
+                  >
+                    <div class="accordion-body">
+                      <ul class="list-group">
+                        <!-- Loop through each transaction for the user -->
+                        <li
+                          v-for="item in userGroup.data"
+                          :key="item.id"
+                          class="list-group-item"
+                          style="
+                            font-size: 10px;
+                            margin-top: 0px;
+                            margin-bottom: 0px;
+                            padding-top: 0px;
+                            padding-bottom: 2px;
+                          "
+                        >
+                          <strong>{{ item.uraian }}</strong>
+                          <div class="d-flex justify-content-between">
+                            <span>{{ item.tanggal | formatTanggal }}</span>
+                            <span>{{ item.nominal | formatNominal }}</span>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -493,6 +550,25 @@
           no_spby: "",
         },
         computed: {
+          kelompokUser() {
+            const result = [];
+
+            this.minuBlm.forEach((item) => {
+              let userGroup = result.find((group) => group.user === item.user);
+
+              if (!userGroup) {
+                userGroup = { user: item.user, totalNominal: 0, data: [] };
+                result.push(userGroup);
+              }
+
+              userGroup.data.push(item);
+              userGroup.totalNominal += item.nominal;
+            });
+
+            // Sort the result by totalNominal in descending order
+            return result.sort((a, b) => b.totalNominal - a.totalNominal);
+          },
+
           totalNominal() {
             return this.minuBlm.reduce(
               (total, item) => total + item.nominal,
