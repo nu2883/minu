@@ -161,7 +161,7 @@
               <div class="card-body">
                 <i :class='["icon-card", "fas fa-check-circle", "realisasi-icon" ]'></i>
                 <h5 class="card-title mt-2 ">Total Realisasi</h5>
-                <p class="card-text fs-4 fw-bold  ">Rp {{realisasi | formatNominal }} ({{dataDash[2].col3 | formatPersen}})</p>
+                <p class="card-text fs-4 fw-bold  ">Rp {{dataDash[2].col1 | formatNominal }} ({{dataDash[2].col3 | formatPersen}})</p>
               </div>
             </div>
           </a>
@@ -169,6 +169,26 @@
 
       </div>
 
+      <div class="container p-3">
+        <h3>Realisasi per Bidang</h3>
+        <table class="table table-striped">
+          
+            <tr v-for="x in realisasi">
+              <td >{{x.col1}}</td>
+              <td >{{x.col2}}</td>
+              <td >{{x.col3}}</td>
+              <td >{{x.col4}}</td>
+              <td style="text-align: right;" >{{x.col5 | formatNominal}}</td>
+              <td style="text-align: right;" >{{x.col6 | formatNominal}}</td>
+              <td style="text-align: right;">{{x.col7 | formatNominal}}</td>
+              <td style="text-align: center;" >{{x.col8 | formatPersen}}</td>
+  
+  
+            </tr>
+          
+        </table>
+  
+      </div>
       <!-- Monitoring Transaksi per Bulan -->
       <div class="card">
         <div class="card-header">
@@ -179,6 +199,7 @@
             <table class="custom-table table table-striped table-sm"
               style="background-color: #ff9800; border-collapse: collapse; width: 100%; font-size: 0.7rem; border: 1px solid black;">
               <thead>
+                <!-- {{monthlyTransactions}} -->
                 <tr>
                   <th style="font-size: 0.9rem; text-align: center;">Transaksi</th>
                   <th v-for="(item, index) in monthlyTransactions" :key="index" style="text-align: center;">
@@ -221,6 +242,10 @@
       </div>
     </div>
 
+
+
+
+
   </div>
 
   <!-- Bootstrap JS CDN -->
@@ -249,7 +274,7 @@
       },
       computed: {
         realisasi() {
-          return this.dataDash[2].col1;
+          return this.dataDash.slice(6, 13);
         },
         monthlyKKP1() {
           const data = this.dataDash[3];
