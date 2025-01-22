@@ -9,8 +9,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- FontAwesome Icons CDN -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-  <!-- Vue.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+  <!-- Vue.js 2 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
   <style>
     .icon-card {
       font-size: 2.5rem;
@@ -112,66 +112,62 @@
       <header class="mb-4">
         <h1 class="text-center">Dashboard Keuangan 2025</h1>
       </header>
-{{stats}}
+
       <!-- Statistik -->
-      <div class="row mb-4">
-        <div class="col-md-4 mt-1" v-for="stat in stats" :key="stat.label">
+      <!-- <div class="row mb-4">
+        <div class="col-md-4 mt-1" v-for="(stat, index) in stats" :key="index">
           <a :href="stat.link" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-            <div class="card text-center ">
+            <div class="card text-center">
               <div class="card-body">
                 <i :class="['icon-card', stat.icon, stat.iconColor]"></i>
-                <h5 class="card-title mt-2 ">{{ stat.label }}</h5>
-                <p class="card-text fs-4 fw-bold  ">{{ stat.value }}</p>
+                <h5 class="card-title mt-2">{{ stat.label }}</h5>
+                <p class="card-text fs-4 fw-bold">{{ stat.value }}</p>
               </div>
             </div>
           </a>
-          {{['icon-card', stat.icon, stat.iconColor]}}
         </div>
-      </div>
-<!-- manual -->
-      <div class="row mb-4">
-        <div class="col-md-4 mt-1" >
-          <a href="#" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+      </div> -->
+
+      <!-- Statistik manual -->
+      <div class="row mb-4" v-if="dataDash.length > 0">
+        <!-- {{dataDash}} -->
+        <div class="col-md-4 mt-1">
+          <a href="https://nu2883.github.io/perjadinOne/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
             <div class="card text-center ">
               <div class="card-body">
-                <i :class="[iconCard, 'fas', 'fa-folder-open', 'kkp-icon']"></i>
+                <i :class='["icon-card", "fas fa-file-alt", "spd-icon" ]'></i>
                 <h5 class="card-title mt-2 ">SPD on Proses</h5>
-                <p class="card-text fs-4 fw-bold  ">value</p>
+                <p class="card-text fs-4 fw-bold  ">{{dataDash[0].col1}} Dokumen</p>
               </div>
             </div>
           </a>
         </div>
-      </div>
 
-      <div class="row mb-4">
-        <div class="col-md-4 mt-1" >
+        <div class="col-md-4 mt-1">
           <a href="#" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
             <div class="card text-center ">
               <div class="card-body">
-                <i class=""></i>
-                <h5 class="card-title mt-2 ">label</h5>
-                <p class="card-text fs-4 fw-bold  ">value</p>
+                <i :class='["icon-card", "fas fa-folder-open", "kkp-icon" ]'></i>
+                <h5 class="card-title mt-2 ">KKP on Proses</h5>
+                <p class="card-text fs-4 fw-bold  ">{{dataDash[1].col1}} Dokumen</p>
               </div>
             </div>
           </a>
         </div>
-      </div>
 
-      <div class="row mb-4">
-        <div class="col-md-4 mt-1" >
-          <a href="#" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+        <div class="col-md-4 mt-1">
+          <a href="https://docs.google.com/spreadsheets/d/16aMwpbirzpbxMOgJdGemzHUB8j78W48tuK6o-2zsYt0/edit?gid=1226670547#gid=1226670547" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
             <div class="card text-center ">
               <div class="card-body">
-                <i class=""></i>
-                <h5 class="card-title mt-2 ">label</h5>
-                <p class="card-text fs-4 fw-bold  ">value</p>
+                <i :class='["icon-card", "fas fa-check-circle", "realisasi-icon" ]'></i>
+                <h5 class="card-title mt-2 ">Total Realisasi</h5>
+                <p class="card-text fs-4 fw-bold  ">Rp {{realisasi | formatNominal }} ({{dataDash[2].col3 | formatPersen}})</p>
               </div>
             </div>
           </a>
         </div>
+
       </div>
-
-
 
       <!-- Monitoring Transaksi per Bulan -->
       <div class="card">
@@ -179,7 +175,6 @@
           <h5 class="mb-0" style="font-size: 1rem;"><i class="fas fa-calendar"></i> Monitoring Transaksi per Bulan</h5>
         </div>
         <div class="card-body">
-          <!-- Membuat tabel menjadi responsif pada tampilan kecil dengan overflow-x -->
           <div class="table-responsive">
             <table class="custom-table table table-striped table-sm"
               style="background-color: #ff9800; border-collapse: collapse; width: 100%; font-size: 0.7rem; border: 1px solid black;">
@@ -221,47 +216,25 @@
                 </tr>
               </tbody>
             </table>
-
-            {{monthlyKKP1}} <br><br>
-            {{dataDash}}
           </div>
         </div>
       </div>
     </div>
+
   </div>
 
   <!-- Bootstrap JS CDN -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- ajax -->
+  <!-- jQuery CDN -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
-
   <script>
-    const { createApp } = Vue;
-
-    createApp({
+    new Vue({
+      el: '#app',
       data() {
-        const generateRandomStatuses = (length) => {
-          const statuses = ['true', 'false', 'none']; // Daftar status yang tersedia
-          return Array.from({ length }, () => statuses[Math.floor(Math.random() * statuses.length)]);
-        };
-        // const monthlyKKP1 = this.dataDash;
-
-
         return {
           dataDash: [],
           currentMonth: new Date().getMonth(), // Current month (0-11)
-          monthlyKKP: ["false", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none",],
-          monthlyDigipay: ["false", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none",],
-          monthlyCMS: ["true", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none",],
           stats: [
             { label: 'SPD on Proses', value: '13 Dokumen', icon: 'fas fa-file-alt', iconColor: 'spd-icon', link: 'https://nu2883.github.io/perjadinOne/' },
             { label: 'KKP on Proses', value: '1 Dokumen', icon: 'fas fa-folder-open', iconColor: 'kkp-icon' },
@@ -271,60 +244,67 @@
             { month: 'Jan' }, { month: 'Feb' }, { month: 'Mar' }, { month: 'Apr' },
             { month: 'Mei' }, { month: 'Jun' }, { month: 'Jul' }, { month: 'Agu' },
             { month: 'Sep' }, { month: 'Okt' }, { month: 'Nov' }, { month: 'Des' }
-          ],
-          // monthlyKKP: generateRandomStatuses(12), // Random statuses for KKP
-          // monthlyDigipay: generateRandomStatuses(12), // Random statuses for Digipay
-          // monthlyCMS: generateRandomStatuses(12), // Random statuses for CMS
+          ]
         };
       },
       computed: {
+        realisasi() {
+          return this.dataDash[2].col1;
+        },
         monthlyKKP1() {
           const data = this.dataDash[3];
           if (data && typeof data === "object") {
-            const values = Object.values(data); // Mengubah objek menjadi array nilai
-            return values.slice(0, 12); // Ambil 10 elemen pertama
+            return Object.values(data).slice(0, 12);
           } else {
-
             return [];
           }
         },
         monthlyDigipay1() {
           const data = this.dataDash[4];
           if (data && typeof data === "object") {
-            const values = Object.values(data); // Mengubah objek menjadi array nilai
-            return values.slice(0, 12); // Ambil 10 elemen pertama
+            return Object.values(data).slice(0, 12);
           } else {
-
             return [];
           }
         },
         monthlyCMS1() {
           const data = this.dataDash[5];
           if (data && typeof data === "object") {
-            const values = Object.values(data); // Mengubah objek menjadi array nilai
-            return values.slice(0, 12); // Ambil 10 elemen pertama
+            return Object.values(data).slice(0, 12);
           } else {
-
             return [];
           }
-        },
-        isCurrentMonth() {
-          return (index) => {
-            return index === this.currentMonth;
-          };
         }
       },
-      methods: {
+      filters: {
+        formatTanggal(value) {
+          if (!value) return "";
+          const date = new Date(value); // Konversi ke objek Date
+          const year = date.getFullYear();
+          const month = String(date.getMonth() + 1).padStart(2, "0"); // Bulan dimulai dari 0
+          const day = String(date.getDate()).padStart(2, "0");
+          return `${year}-${month}-${day}`; // Format yyyy-mm-dd
+        },
+        formatNominal(value) {
+          if (!value) return "";
+          return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        },
+        formatPersen(value) {
+  if (value === undefined || value === null) return ""; // Jika nilai tidak ada, kembalikan string kosong
+  const parsedValue = parseFloat(value); // Konversi ke angka
+  if (isNaN(parsedValue)) return ""; // Jika bukan angka, kembalikan string kosong
+  return `${(parsedValue * 100).toFixed(2)}%`; // Kalikan dengan 100, format dengan 2 desimal, dan tambahkan simbol persen
+}
 
+      },
+      methods: {
         ambilDash() {
           this.dataDash = [];
-
-          var url =
+          const url =
             "https://script.google.com/macros/s/AKfycbwTchCvKWMTP5xz50QimdIJglnOOOQsHq8Iai0HkN8ohCIWnhMBKppFVl9yNXvV88tX/exec?action=read&table=dash";
 
           let app = this;
           $.getJSON(url, function (json) {
-            //   console.log(json.data);
             app.dataDash = json.data;
           });
         },
@@ -332,8 +312,7 @@
       created() {
         this.ambilDash();
       }
-
-    }).mount('#app');
+    });
   </script>
 </body>
 
