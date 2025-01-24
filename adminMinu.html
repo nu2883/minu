@@ -265,15 +265,16 @@
               <div
                 class="ml-auto mb-2 accordion"
                 id="userAccordion1"
-                style="height: 35px; background-color: aqua"
-              >
-                <span
-                  class="ml-auto p-2 accordion-button"
-                  type="button"
+                style="height: 45px; background-color: aqua"
+                type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#detail1"
                   aria-expanded="false"
                   aria-controls="detail1"
+              >
+                <button
+                  class="ml-auto p-2 accordion-button btn btn-outline-info"
+                  
                 >
                   Total Nominal yang belum SPBy : Rp
                   <b> {{totalNominal | formatNominal}}</b>
@@ -329,6 +330,9 @@
                               padding-top: 0px;
                               padding-bottom: 2px;
                             "
+                            @click="pilihSPBy(item)"
+                            data-bs-toggle="modal"
+                        data-bs-target="#modalSPBy"
                           >
                             <strong>{{ item.uraian }}</strong>
                             <div class="d-flex justify-content-between">
@@ -687,6 +691,9 @@
               var a6 = obj.nominal;
               var a7 = this.no_spby;
 
+              if(a2){
+
+              
               var lin = `https://script.google.com/macros/s/AKfycbwTchCvKWMTP5xz50QimdIJglnOOOQsHq8Iai0HkN8ohCIWnhMBKppFVl9yNXvV88tX/exec?action=insert&table=minuSpby&data={"id":${waktu1},"tanggal_catat":"${tanggal}", "id_trx":"'${a2}","no_spby":"'${a7}"}`;
               // this.test = lin;
               let app = this;
@@ -715,6 +722,7 @@
             } else {
               alert("no SPBY wajid di isi");
             }
+          }
           },
           pilihSPBy(aaa) {
             this.selectedSPBy = [];
