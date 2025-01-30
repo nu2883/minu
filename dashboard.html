@@ -169,7 +169,7 @@
 
       </div>
 
-      <div class="container p-3">
+      <!-- <div class="container p-3">
         <h3>Realisasi per Bidang</h3>
         <table class="table table-striped">
           
@@ -188,11 +188,39 @@
           
         </table>
   
+      </div> -->
+
+      <div class="card mb-3">
+        <div class="card-header">
+          <h4 class="mb-0" style="font-size: 1rem;"><i class="fas fa-calendar"></i> Realisasi per Bidang</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped" style="font-size: 0.6rem;">
+          
+              <tr v-for="x in realisasi">
+                <td style="text-align: center;">{{x.col1}}</td>
+                <td >{{x.col2}}</td>
+                <td >{{x.col3}}</td>
+                <td >{{x.col4}}</td>
+                <td style="text-align: right;" >{{x.col5 | formatNominal}}</td>
+                <td style="text-align: right;" >{{x.col6 | formatNominal}}</td>
+                <td style="text-align: right;">{{x.col7 | formatNominal}}</td>
+                <td style="text-align: center;" >{{x.col8 | formatPersen}}</td>
+    
+    
+              </tr>
+            
+          </table>
+          </div>
+        </div>
       </div>
+
+
       <!-- Monitoring Transaksi per Bulan -->
       <div class="card">
         <div class="card-header">
-          <h5 class="mb-0" style="font-size: 1rem;"><i class="fas fa-calendar"></i> Monitoring Transaksi per Bulan</h5>
+          <h4 class="mb-0" style="font-size: 1rem;"><i class="fas fa-calendar"></i> Monitoring Transaksi per Bulan</h4>
         </div>
         <div class="card-body">
           <div class="table-responsive">
