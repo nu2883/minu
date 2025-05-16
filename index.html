@@ -145,10 +145,19 @@
                         </div>
                             <div v-if="form">
                                 <div class="formBelly" v-if="selectedUsers[0].status == 'pk'">
-                                <button v-if="selectedUsers[0].status == 'pk'" type="button" class="btn btn-primary"
-                                    data-bs-toggle="modal" data-bs-target="#exampleModal1">
-                                    Pilih Rekening Tujuan
-                                </button>
+                                <div class="d-flex justify-content-between">
+    <button v-if="selectedUsers[0].status == 'pk'" type="button" class="btn btn-primary"
+        data-bs-toggle="modal" data-bs-target="#exampleModal1">
+        Pilih Rekening Tujuan
+    </button>
+    <a href="https://docs.google.com/spreadsheets/d/15gVtaNC_Seva8IAbwNSvM2mj_ZY9ndl9R-pl9s8tnGc/edit?gid=370703201#gid=370703201" target="_blank" rel="noopener noreferrer">
+    <button v-if="selectedUsers[0].status == 'pk'" type="button" class="btn btn-secondary"
+        >
+        Rek Baru
+    </button>
+    </a>
+</div>
+
                                 <!-- {{selectedRek}} -->
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
