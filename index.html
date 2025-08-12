@@ -223,11 +223,14 @@
                         </div>
                         <div v-if="!form">
                             <!-- {{filteredMinu.totalNominal}} -->
+
+                            <!-- {{filteredMinu.filteredData}} -->
                             <table class="table table-striped tabel1">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Tanggal</th>
+                                        <th scope="col">Penerima</th>
                                         <th scope="col">Uraian</th>
                                         <th scope="col">Nominal</th>
                                         <th scope="col">Aksi</th>
@@ -237,6 +240,7 @@
                                     <tr v-for="(min, index) in filteredMinu.filteredData" @click="pilihSPBy(min)">
                                         <th scope="row">{{index+1}}</th>
                                         <td>{{min.tanggal| formatTanggal }}</td>
+                                        <td>{{min.penerima}}</td>
                                         <td>{{min.uraian}}</td>
                                         <td>{{min.nominal | formatNominal }}</td>
                                         <td><button class="btn btn-success btn-xs tabel1" data-bs-toggle="modal" 
