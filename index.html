@@ -17,25 +17,30 @@
         /* Keyframes untuk animasi membesar */
         @keyframes grow {
             from {
-                transform: scale(0.3); /* Ukuran awal */
+                transform: scale(0.3);
+                /* Ukuran awal */
             }
+
             to {
-                transform: scale(1.5); /* Ukuran akhir (2x lipat) */
+                transform: scale(1.5);
+                /* Ukuran akhir (2x lipat) */
             }
         }
-        
+
         /* Tambahkan animasi ke elemen */
         .animate-grow {
-            animation: grow 3.5s ease-in-out infinite; /* Animasi terus-menerus */
+            animation: grow 3.5s ease-in-out infinite;
+            /* Animasi terus-menerus */
             /* animation-fill-mode: forwards; Agar tetap pada ukuran akhir setelah animasi selesai */
         }
 
         @media screen and (max-width: 768px) {
-    .tabel1 {
-        font-size: 12px; /* Ukuran font untuk ponsel */
-    }
-}
-        </style>
+            .tabel1 {
+                font-size: 12px;
+                /* Ukuran font untuk ponsel */
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -43,12 +48,11 @@
         <div v-if="!login " class="vh-100 d-flex justify-content-center align-items-center bg-light"
             style="background-image: url('kuiz5.png'); background-size: cover; background-position: center; height: 85vh; width: 100%;">
 
-            <div 
-            class="d-flex justify-content-center align-items-center animate-grow" 
-            style="width: 200px; height: 80px; background-color: rgb(223, 223, 111); border-radius: 10px; opacity: 0.8;">
-            <button v-if="users.length > 0" class="btn btn-primary btn-lg" data-bs-toggle="modal"
-                data-bs-target="#exampleModal" style="width: 180px; height: 60px; opacity: 1.0;">Login</button>
-        </div>
+            <div class="d-flex justify-content-center align-items-center animate-grow"
+                style="width: 200px; height: 80px; background-color: rgb(223, 223, 111); border-radius: 10px; opacity: 0.8;">
+                <button v-if="users.length > 0" class="btn btn-primary btn-lg" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal" style="width: 180px; height: 60px; opacity: 1.0;">Login</button>
+            </div>
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -56,10 +60,12 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel" >User Minu</h5>
-                            <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h5 class="modal-title" id="exampleModalLabel">User Minu</h5>
+                            <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
+
                             <button class="mx-1 btn btn-outline-primary mb-1" v-for="(user, index) in users"
                                 @click="tambah(user)" data-bs-dismiss="modal">{{user.nama}}</button>
                         </div>
@@ -70,12 +76,13 @@
 
         </div>
         <div class="container-fluid" v-if="login" style="padding: 0;">
-            <div style=" background-image: url('kuiz5.png'); background-size: cover; background-position: center;" class="px-3">
+            <div style=" background-image: url('kuiz5.png'); background-size: cover; background-position: center;"
+                class="px-3">
                 <b>
-                    
 
-                        <h1 class="mx-1 mt-1 mb-1 " style="font-weight: 50px;">M I N U </h1>
-                    
+
+                    <h1 class="mx-1 mt-1 mb-1 " style="font-weight: 50px;">M I N U </h1>
+
                 </b>
                 <button class="btn btn-primary" style="opacity: 0.9;">
                     <h5 class="mx-1 "><span v-if="selectedUsers.length > 0">{{selectedUsers[0].nama}}</span></h5>
@@ -83,7 +90,7 @@
                 <hr>
 
             </div>
-            
+
             <!-- Button trigger modal -->
             <div v-if="selectedUsers.length > 0">
                 <!-- <button v-if="selectedUsers[0].status == 'pk'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -93,12 +100,12 @@
             </div>
 
 
-            <div v-if="login" >
+            <div v-if="login">
 
                 <div class="" v-if="selectedUsers.length > 0">
                     <div class="form" v-if="form">
                         <div class="formBelly" v-if="selectedUsers[0].status == 'pk'">
-                            
+
 
                         </div>
                         <div class="formUmum container" v-if="selectedUsers[0].status != 'pk'">
@@ -139,179 +146,194 @@
 
                     </div>
                     <div v-if="selectedUsers[0].status == 'pk'" class="container">
-                        <div class="d-flex justify-content-between align-items-center" style="width: 100%; padding: 10px;">
-                            <button class="btn btn-warning mb-2" @click="form=true">Buat Request</button>
-                            <button class="btn btn-danger mb-2" @click="login=false">Logout</button>
-                        </div>
+                    <div class="input-group mb-3" v-if="passs === false">
+                        
+                        <input autofocus ref="passwordInput" v-model="password"  type="password" class="form-control" placeholder="Password Plese" aria-label="Recipient's username" aria-describedby="button-ad1don2imun" >
+                        <button @click="cek" class="btn btn-outline-secondary" type="button" id="button-addon2">Ok</button>
+                    </div>
+
+                    
+
+                        <div v-if="passs === true">
+                            <div class="d-flex justify-content-between align-items-center"
+                                style="width: 100%; padding: 10px;">
+                                <button class="btn btn-warning mb-2" @click="form=true">Buat Request</button>
+                                <button class="btn btn-danger mb-2" @click="login=false; passs = false; password = '';">Logout</button>
+                            </div>
                             <div v-if="form">
                                 <div class="formBelly" v-if="selectedUsers[0].status == 'pk'">
-                                <div class="d-flex justify-content-between">
-    <button v-if="selectedUsers[0].status == 'pk'" type="button" class="btn btn-primary"
-        data-bs-toggle="modal" data-bs-target="#exampleModal1">
-        Pilih Rekening Tujuan
-    </button>
-    <a href="https://docs.google.com/spreadsheets/d/15gVtaNC_Seva8IAbwNSvM2mj_ZY9ndl9R-pl9s8tnGc/edit?gid=370703201#gid=370703201" target="_blank" rel="noopener noreferrer">
-    <button v-if="selectedUsers[0].status == 'pk'" type="button" class="btn btn-secondary"
-        >
-        Rek Baru
-    </button>
-    </a>
-</div>
-
-                                <!-- {{selectedRek}} -->
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Data Rekening</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
+                                    <div class="d-flex justify-content-between">
+                                        <button v-if="selectedUsers[0].status == 'pk'" type="button" class="btn btn-primary"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                            Pilih Rekening Tujuan
+                                        </button>
+                                        <a href="https://docs.google.com/spreadsheets/d/15gVtaNC_Seva8IAbwNSvM2mj_ZY9ndl9R-pl9s8tnGc/edit?gid=370703201#gid=370703201"
+                                            target="_blank" rel="noopener noreferrer">
+                                            <button v-if="selectedUsers[0].status == 'pk'" type="button"
+                                                class="btn btn-secondary">
+                                                Rek Baru
+                                            </button>
+                                        </a>
+                                    </div>
+    
+                                    <!-- {{selectedRek}} -->
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal1" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Data Rekening</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <button class="mx-1 btn btn-outline-primary mb-1"
+                                                        v-for="(rek, index) in reks" @click="pilihRek(rek)"
+                                                        data-bs-dismiss="modal">{{rek.nama}}</button>
+                                                </div>
+                                                <!-- <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div> -->
                                             </div>
-                                            <div class="modal-body">
-                                                <button class="mx-1 btn btn-outline-primary mb-1"
-                                                    v-for="(rek, index) in reks" @click="pilihRek(rek)"
-                                                    data-bs-dismiss="modal">{{rek.nama}}</button>
-                                            </div>
-                                            <!-- <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div> -->
                                         </div>
                                     </div>
-                                </div>
     
-                                <div v-if="selectedRek.length > 0" >
+                                    <div v-if="selectedRek.length > 0">
     
-                                    <div class="input-group mb-1 mt-1">
-                                        <input type="text" disabled class="form-control" placeholder="penerima pembayaran"
-                                            v-model="selectedRek[0].nama" aria-label="Recipient's username"
-                                            aria-describedby="button-addon2">
-    
-                                    </div>
-                                    <div class="input-group mb-1 mt-1 ">
-                                        <input type="text" disabled class="form-control" placeholder="nama bank"
-                                            v-model="selectedRek[0].bank" aria-label="Recipient's username"
-                                            aria-describedby="button-addon2">
-                                    </div>
-                                    <div class="input-group mb-1 mt-1">
-                                        <input type="text" disabled class="form-control"
-                                            placeholder="no rekening pembayaran" v-model="selectedRek[0].no_rek"
-                                            aria-label="Recipient's username" aria-describedby="button-addon2">
-                                        <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="copyToClipboard">copy</button> -->
-                                    </div>
-                                    <div class="input-group mb-1 mt-1">
-                                        <input type="text" class="form-control" placeholder="nominal" placeholder="nominal"
-                                            v-model="formattedNominal" @input="formatNominalInput"
-                                            aria-label="Recipient's username" aria-describedby="button-addon2">
-                                        <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon3" @click="copyNominal">copy</button> -->
-                                    </div>
-                                    <div class="input-group mb-1 mt-1">
-                                        <input type="text" class="form-control" placeholder="uraian" v-model="uraian"
-                                            aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    </div>
-    
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-success" @click="simpanRequestPK">Send
-                                            Request</button>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div v-if="!form">
-                            <!-- {{filteredMinu.totalNominal}} -->
-
-                            <!-- {{filteredMinu.filteredData}} -->
-                            <table class="table table-striped tabel1">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Tanggal</th>
-                                        <th scope="col">Penerima</th>
-                                        <th scope="col">Uraian</th>
-                                        <th scope="col">Nominal</th>
-                                        <th scope="col">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(min, index) in filteredMinu.filteredData" @click="pilihSPBy(min)">
-                                        <th scope="row">{{index+1}}</th>
-                                        <td>{{min.tanggal| formatTanggal }}</td>
-                                        <td>{{min.penerima}}</td>
-                                        <td>{{min.uraian}}</td>
-                                        <td>{{min.nominal | formatNominal }}</td>
-                                        <td><button class="btn btn-success btn-xs tabel1" data-bs-toggle="modal" 
-                                                data-bs-target="#modalSPBy">Catat SPBy</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td style="text-align: right;"><b>Total</b></td>
-                                        <td> <b> {{filteredMinu.totalNominal | formatNominal}} </b></td>
-                                        <td></td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="modal fade" id="modalSPBy" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Catat SPBy</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" @click="no_spby = ''"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body" v-if="selectedSPBy.length > 0" >
-                                        <b><label for="">Keperluan pembayaran :</label></b>
-                                        <div class="input-group mb-1">
+                                        <div class="input-group mb-1 mt-1">
                                             <input type="text" disabled class="form-control"
-                                                placeholder="penerima pembayaran" v-model="selectedSPBy[0].uraian"
+                                                placeholder="penerima pembayaran" v-model="selectedRek[0].nama"
                                                 aria-label="Recipient's username" aria-describedby="button-addon2">
-                                        </div>
-                                        <div class="input-group mb-1 mt-4">
-                                            <input type="text" disabled class="form-control"
-                                                placeholder="penerima pembayaran" v-model="selectedSPBy[0].penerima"
-                                                aria-label="Recipient's username" aria-describedby="button-addon2">
+    
                                         </div>
                                         <div class="input-group mb-1 mt-1 ">
                                             <input type="text" disabled class="form-control" placeholder="nama bank"
-                                                v-model="selectedSPBy[0].bank" aria-label="Recipient's username"
+                                                v-model="selectedRek[0].bank" aria-label="Recipient's username"
                                                 aria-describedby="button-addon2">
                                         </div>
-                                        <div class="input-group mb-1 mt-1 ">
-                                            <input type="text" disabled class="form-control" placeholder="nama bank"
-                                                v-model="formattedNominalSpby" aria-label="Recipient's username"
-                                                aria-describedby="button-addon2">
+                                        <div class="input-group mb-1 mt-1">
+                                            <input type="text" disabled class="form-control"
+                                                placeholder="no rekening pembayaran" v-model="selectedRek[0].no_rek"
+                                                aria-label="Recipient's username" aria-describedby="button-addon2">
+                                            <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="copyToClipboard">copy</button> -->
                                         </div>
-                                        <div class="input-group mb-1 mt-1 ">
-                                            <input type="text"  class="form-control" placeholder="nomor SPBY"
-                                                v-model="no_spby" aria-label="Recipient's username"
-                                                aria-describedby="button-addon2">
+                                        <div class="input-group mb-1 mt-1">
+                                            <input type="text" class="form-control" placeholder="nominal"
+                                                placeholder="nominal" v-model="formattedNominal" @input="formatNominalInput"
+                                                aria-label="Recipient's username" aria-describedby="button-addon2">
+                                            <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon3" @click="copyNominal">copy</button> -->
+                                        </div>
+                                        <div class="input-group mb-1 mt-1">
+                                            <input type="text" class="form-control" placeholder="uraian" v-model="uraian"
+                                                aria-label="Recipient's username" aria-describedby="button-addon2">
+                                        </div>
+    
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" @click="simpanRequestPK">Send
+                                                Request</button>
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
-                                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                                        <button type="button" class="btn btn-primary" @click="saveSPBY" data-bs-dismiss="modal">Simpan SPBy</button>
+    
+                                </div>
+    
+                            </div>
+                            <div v-if="!form">
+                                <!-- {{filteredMinu.totalNominal}} -->
+    
+                                <!-- {{filteredMinu.filteredData}} -->
+                                <table class="table table-striped tabel1">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Tanggal</th>
+                                            <th scope="col">Penerima</th>
+                                            <th scope="col">Uraian</th>
+                                            <th scope="col">Nominal</th>
+                                            <th scope="col">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(min, index) in filteredMinu.filteredData" @click="pilihSPBy(min)">
+                                            <th scope="row">{{index+1}}</th>
+                                            <td>{{min.tanggal| formatTanggal }}</td>
+                                            <td>{{min.penerima}}</td>
+                                            <td>{{min.uraian}}</td>
+                                            <td>{{min.nominal | formatNominal }}</td>
+                                            <td><button class="btn btn-success btn-xs tabel1" data-bs-toggle="modal"
+                                                    data-bs-target="#modalSPBy">Catat SPBy</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align: right;"><b>Total</b></td>
+                                            <td> <b> {{filteredMinu.totalNominal | formatNominal}} </b></td>
+                                            <td></td>
+                                        </tr>
+    
+                                    </tbody>
+                                </table>
+                            </div>
+    
+                            <div class="modal fade" id="modalSPBy" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Catat SPBy</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                @click="no_spby = ''" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body" v-if="selectedSPBy.length > 0">
+                                            <b><label for="">Keperluan pembayaran :</label></b>
+                                            <div class="input-group mb-1">
+                                                <input type="text" disabled class="form-control"
+                                                    placeholder="penerima pembayaran" v-model="selectedSPBy[0].uraian"
+                                                    aria-label="Recipient's username" aria-describedby="button-addon2">
+                                            </div>
+                                            <div class="input-group mb-1 mt-4">
+                                                <input type="text" disabled class="form-control"
+                                                    placeholder="penerima pembayaran" v-model="selectedSPBy[0].penerima"
+                                                    aria-label="Recipient's username" aria-describedby="button-addon2">
+                                            </div>
+                                            <div class="input-group mb-1 mt-1 ">
+                                                <input type="text" disabled class="form-control" placeholder="nama bank"
+                                                    v-model="selectedSPBy[0].bank" aria-label="Recipient's username"
+                                                    aria-describedby="button-addon2">
+                                            </div>
+                                            <div class="input-group mb-1 mt-1 ">
+                                                <input type="text" disabled class="form-control" placeholder="nama bank"
+                                                    v-model="formattedNominalSpby" aria-label="Recipient's username"
+                                                    aria-describedby="button-addon2">
+                                            </div>
+                                            <div class="input-group mb-1 mt-1 ">
+                                                <input type="text" class="form-control" placeholder="nomor SPBY"
+                                                    v-model="no_spby" aria-label="Recipient's username"
+                                                    aria-describedby="button-addon2">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                                            <button type="button" class="btn btn-primary" @click="saveSPBY"
+                                                data-bs-dismiss="modal">Simpan SPBy</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
 
 
                     </div>
                     <div v-else>
                         <div v-if="!form" class="container">
-                            <div class="d-flex justify-content-between align-items-center" style="width: 100%; padding: 10px;">
+                            <div class="d-flex justify-content-between align-items-center"
+                                style="width: 100%; padding: 10px;">
                                 <button class="btn btn-warning mb-2" @click="form=true">Buat Request</button>
                                 <button class="btn btn-danger mb-2" @click="login=false">Logout</button>
                             </div>
-                       
+
 
                             <table class="table table-striped tabel1">
                                 <thead>
@@ -334,7 +356,7 @@
                                         <td></td>
                                         <td style="text-align: right;"><b>Total</b></td>
                                         <td> <b> {{filteredMinu.totalNominal | formatNominal}} </b></td>
-                             
+
                                     </tr>
 
                                 </tbody>
@@ -384,7 +406,10 @@
                     uraian: '',
                     login: false,
                     form: false,
-                    no_spby:'',
+                    no_spby: '',
+                    passs : false,
+                    password : '',
+                    password1 : 'imun',
 
                 },
                 computed: {
@@ -409,25 +434,25 @@
                         }
                     },
                     filteredMinu() {
-    // Filter data minu berdasarkan selectedUsers
-    if (this.selectedUsers.length === 0) {
-        return {
-            filteredData: this.minu, // Jika tidak ada user yang dipilih, tampilkan semua data
-            totalNominal: this.minu.reduce((sum, item) => sum + item.nominal, 0), // Totalkan semua nominal
-        };
-    }
-    const selectedName = this.selectedUsers[0].nama; // Ambil nama dari selectedUsers
-    console.log(selectedName);
-    const filteredData = this.minu.filter(item => item.user === selectedName); // Cocokkan dengan item.user
+                        // Filter data minu berdasarkan selectedUsers
+                        if (this.selectedUsers.length === 0) {
+                            return {
+                                filteredData: this.minu, // Jika tidak ada user yang dipilih, tampilkan semua data
+                                totalNominal: this.minu.reduce((sum, item) => sum + item.nominal, 0), // Totalkan semua nominal
+                            };
+                        }
+                        const selectedName = this.selectedUsers[0].nama; // Ambil nama dari selectedUsers
+                        console.log(selectedName);
+                        const filteredData = this.minu.filter(item => item.user === selectedName); // Cocokkan dengan item.user
 
-    // Hitung total nominal untuk data yang difilter
-    const totalNominal = filteredData.reduce((sum, item) => sum + item.nominal, 0);
+                        // Hitung total nominal untuk data yang difilter
+                        const totalNominal = filteredData.reduce((sum, item) => sum + item.nominal, 0);
 
-    return {
-        filteredData,
-        totalNominal,
-    };
-},
+                        return {
+                            filteredData,
+                            totalNominal,
+                        };
+                    },
                 },
                 filters: {
                     formatTanggal(value) {
@@ -444,70 +469,79 @@
                     },
                 },
                 methods: {
+                    cek(){
+                        if(this.password1 === this.password){
+                            
+                            this.passs = true;
+                        }else{
+                            this.login = false;
+                            this.password = '';
+                        }
+                    },
                     formatNominalInput() {
                         // Event handler untuk memastikan format diperbarui saat mengetik
                         this.formattedNominal = this.formattedNominal; // Trigger setter
                     },
-                    saveSPBY(){
-                        if(this.no_spby){
+                    saveSPBY() {
+                        if (this.no_spby) {
 
-                        
-                   var obj = this.selectedSPBy[0];
-                        this.form = false
-                        var waktu1 = Date.now();
-                        var dateObj = new Date(waktu1); // Membuat objek Date dari timestamp
 
-                        // Format tanggal menjadi tahun-bulan-tanggal
-                        var tanggal = dateObj.toISOString().split('T')[0];
-                        var a2 = obj.id;
-                        var a3 = obj.penerima;
-                        var a4 = obj.bank;
-                        var a5 = obj.no_rek;
-                        var a6 = obj.nominal;
-                        var a7 = this.no_spby;
+                            var obj = this.selectedSPBy[0];
+                            this.form = false
+                            var waktu1 = Date.now();
+                            var dateObj = new Date(waktu1); // Membuat objek Date dari timestamp
 
-                        var lin = `https://script.google.com/macros/s/AKfycbwTchCvKWMTP5xz50QimdIJglnOOOQsHq8Iai0HkN8ohCIWnhMBKppFVl9yNXvV88tX/exec?action=insert&table=minuSpby&data={"id":${waktu1},"tanggal_catat":"${tanggal}", "id_trx":"'${a2}","no_spby":"'${a7}"}`;
-                        // this.test = lin;
-                        let app = this;
-                        $.ajax({
-                            type: "GET",
-                            url: lin,
-                            crossDomain: true,
-                            dataType: "jsonp",
-                            dataType: "text",
-                            success: function (resultData) {
-                                // app.nominal = ''
-                                app.no_spby = ''
-                                app.minu = [];
-                                app.ambilDataMinu();
-                                // app.ambilDataMinuTf();
-                                
-                                //   alert("Save Complete");
-                                // app.newTodo.deadline = ''
-                                // app.newTodo.monthly = false
-                                // app.isLoading = false;
-                                //   app.ambilDataRiil();
-                            },
-                        });
+                            // Format tanggal menjadi tahun-bulan-tanggal
+                            var tanggal = dateObj.toISOString().split('T')[0];
+                            var a2 = obj.id;
+                            var a3 = obj.penerima;
+                            var a4 = obj.bank;
+                            var a5 = obj.no_rek;
+                            var a6 = obj.nominal;
+                            var a7 = this.no_spby;
 
-                        console.log("Task Berhasil di Simpan");
-                        }else{
+                            var lin = `https://script.google.com/macros/s/AKfycbwTchCvKWMTP5xz50QimdIJglnOOOQsHq8Iai0HkN8ohCIWnhMBKppFVl9yNXvV88tX/exec?action=insert&table=minuSpby&data={"id":${waktu1},"tanggal_catat":"${tanggal}", "id_trx":"'${a2}","no_spby":"'${a7}"}`;
+                            // this.test = lin;
+                            let app = this;
+                            $.ajax({
+                                type: "GET",
+                                url: lin,
+                                crossDomain: true,
+                                dataType: "jsonp",
+                                dataType: "text",
+                                success: function (resultData) {
+                                    // app.nominal = ''
+                                    app.no_spby = ''
+                                    app.minu = [];
+                                    app.ambilDataMinu();
+                                    // app.ambilDataMinuTf();
+
+                                    //   alert("Save Complete");
+                                    // app.newTodo.deadline = ''
+                                    // app.newTodo.monthly = false
+                                    // app.isLoading = false;
+                                    //   app.ambilDataRiil();
+                                },
+                            });
+
+                            console.log("Task Berhasil di Simpan");
+                        } else {
                             alert("no SPBY wajid di isi")
                         }
                     },
                     simpanRequest() {
                         var obj = this.selectedUsers[0];
                         this.form = false
-                               var waktu1 = Date.now();
-var dateObj = new Date(waktu1); // Membuat objek Date dari timestamp
+                        var waktu1 = Date.now();
+                        var dateObj = new Date(waktu1); // Membuat objek Date dari timestamp
 
-// Konversi waktu ke WIB (Asia/Jakarta)
-var options = { timeZone: "Asia/Jakarta", year: "numeric", month: "2-digit", day: "2-digit" };
-var tanggalIndonesia = new Intl.DateTimeFormat("id-ID", options).format(dateObj);
+                        // Konversi waktu ke WIB (Asia/Jakarta)
+                        var options = { timeZone: "Asia/Jakarta", year: "numeric", month: "2-digit", day: "2-digit" };
+                        var tanggalIndonesia = new Intl.DateTimeFormat("id-ID", options).format(dateObj);
 
-// Ubah format tanggal ke format tahun-bulan-tanggal (YYYY-MM-DD)
-var parts = tanggalIndonesia.split("/");
-var tanggal = `${parts[2]}-${parts[1]}-${parts[0]}`; // Format YYYY-MM-DD
+                        // Ubah format tanggal ke format tahun-bulan-tanggal (YYYY-MM-DD)
+                        var parts = tanggalIndonesia.split("/");
+                        var tanggal = `${parts[2]}-${parts[1]}-${parts[0]}`; // Format YYYY-MM-DD
                         var a2 = obj.nama;
                         var a3 = obj.nama;
                         var a4 = obj.bank;
@@ -544,16 +578,16 @@ var tanggal = `${parts[2]}-${parts[1]}-${parts[0]}`; // Format YYYY-MM-DD
                         var obj = this.selectedRek[0];
                         this.form = false
 
-                           var waktu1 = Date.now();
-var dateObj = new Date(waktu1); // Membuat objek Date dari timestamp
+                        var waktu1 = Date.now();
+                        var dateObj = new Date(waktu1); // Membuat objek Date dari timestamp
 
-// Konversi waktu ke WIB (Asia/Jakarta)
-var options = { timeZone: "Asia/Jakarta", year: "numeric", month: "2-digit", day: "2-digit" };
-var tanggalIndonesia = new Intl.DateTimeFormat("id-ID", options).format(dateObj);
+                        // Konversi waktu ke WIB (Asia/Jakarta)
+                        var options = { timeZone: "Asia/Jakarta", year: "numeric", month: "2-digit", day: "2-digit" };
+                        var tanggalIndonesia = new Intl.DateTimeFormat("id-ID", options).format(dateObj);
 
-// Ubah format tanggal ke format tahun-bulan-tanggal (YYYY-MM-DD)
-var parts = tanggalIndonesia.split("/");
-var tanggal = `${parts[2]}-${parts[1]}-${parts[0]}`; // Format YYYY-MM-DD
+                        // Ubah format tanggal ke format tahun-bulan-tanggal (YYYY-MM-DD)
+                        var parts = tanggalIndonesia.split("/");
+                        var tanggal = `${parts[2]}-${parts[1]}-${parts[0]}`; // Format YYYY-MM-DD
                         var a2 = obj1.nama;
                         var a3 = obj.nama;
                         var a4 = obj.bank;
@@ -625,12 +659,14 @@ var tanggal = `${parts[2]}-${parts[1]}-${parts[0]}`; // Format YYYY-MM-DD
                         });
                     },
                     tambah(user) {
+
                         this.selectedUsers = [];
                         // Avoid duplicate entries
                         if (!this.selectedUsers.includes(user)) {
                             this.selectedUsers.push(user);
                         }
                         this.login = true;
+
                     },
                     pilihRek(user) {
                         this.selectedRek = [];
@@ -683,9 +719,9 @@ var tanggal = `${parts[2]}-${parts[1]}-${parts[0]}`; // Format YYYY-MM-DD
                     this.ambilDataRek();
                     this.ambilDataMinu();
                 },
-                mounted() {
-
-                },
+     mounted() {
+    this.$refs.passwordInput.focus();
+  }
             });
         </script>
 </body>
