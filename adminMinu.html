@@ -32,7 +32,8 @@
       <br />
       <br />
       <!-- {{minuTf}} -->
-      <h1>Admin Minu</h1>
+      <h1>Admin Minu <span v-if="minuBlm == 0 " class="visually-hidden spinner-border text-success"></span></h1> 
+      
       <br />
 
       <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -80,11 +81,10 @@
           </button>
         </li>
         <li class="nav-item mr-1" role="presentation">
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">@</span>
-          </div>
+          
         </li>
       </ul>
+      <!-- {{minuBlm.length}} -->
       <div class="tab-content" id="pills-tabContent">
         <div
           class="tab-pane fade show active"
