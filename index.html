@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Minu Minu</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" /> -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" /> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <style>
         /* Keyframes untuk animasi membesar */
@@ -109,6 +109,11 @@
 
                         </div>
                         <div class="formUmum container" v-if="selectedUsers[0].status != 'pk'">
+                                                        <div class="d-flex justify-content-between align-items-center"
+                                style="width: 100%; padding: 10px;">
+                                <button class="btn btn-secondary mb-2" @click="form=true"></button>
+                                <button class="btn btn-danger mb-2" @click="form=false;">batal</button>
+                            </div>
                             <div class="input-group mb-1 mt-1">
                                 <input type="text" disabled class="form-control" placeholder="penerima pembayaran"
                                     v-model="selectedUsers[0].nama" aria-label="Recipient's username"
@@ -175,7 +180,7 @@
                                             </button>
                                         </a>
                                     </div>
-    
+                                    <!-- {{selectedUsers}} -->
                                     <!-- {{selectedRek}} -->
                                     <!-- Modal -->
                                     <div class="modal fade" id="exampleModal1" tabindex="-1"
@@ -231,8 +236,7 @@
                                         </div>
     
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-success" @click="simpanRequestPK">Send
-                                                Request</button>
+                                            <button type="button" class="btn btn-success" @click="simpanRequestPK">Send Request 1</button>
                                         </div>
                                     </div>
     
@@ -282,8 +286,8 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">Catat SPBy</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                @click="no_spby = ''" aria-label="Close"></button>
+                                            <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal"
+                                                @click="no_spby = ''" aria-label="Close">x</button>
                                         </div>
                                         <div class="modal-body" v-if="selectedSPBy.length > 0">
                                             <b><label for="">Keperluan pembayaran :</label></b>
@@ -410,6 +414,7 @@
                     passs : false,
                     password : '',
                     password1 : 'imun',
+                    
 
                 },
                 computed: {
@@ -469,10 +474,13 @@
                     },
                 },
                 methods: {
+               
+
                     cek(){
                         if(this.password1 === this.password){
                             
                             this.passs = true;
+                            this.selectedRek = this.selectedUsers;
                         }else{
                             this.login = false;
                             this.password = '';
@@ -718,9 +726,9 @@
                     this.ambilDataUser();
                     this.ambilDataRek();
                     this.ambilDataMinu();
+                    
                 },
      mounted() {
-    this.$refs.passwordInput.focus();
   }
             });
         </script>
