@@ -160,14 +160,20 @@
                     
 
                         <div v-if="passs === true">
-                            <div class="d-flex justify-content-between align-items-center"
+                            <div v-if="!form" class="d-flex justify-content-between align-items-center"
                                 style="width: 100%; padding: 10px;">
                                 <button class="btn btn-warning mb-2" @click="form=true">Buat Request</button>
                                 <button class="btn btn-danger mb-2" @click="login=false; passs = false; password = '';">Logout</button>
                             </div>
                             <div v-if="form">
                                 <div class="formBelly" v-if="selectedUsers[0].status == 'pk'">
+                                     <div class="d-flex justify-content-between align-items-center"
+                                style="width: 100%; padding: 10px;">
+                                <button class="btn btn-secondary mb-2" @click="form=true"></button>
+                                <button class="btn btn-danger mb-2" @click="form=false;">batal</button>
+                            </div>
                                     <div class="d-flex justify-content-between">
+                                        
                                         <button v-if="selectedUsers[0].status == 'pk'" type="button" class="btn btn-primary"
                                             data-bs-toggle="modal" data-bs-target="#exampleModal1">
                                             Pilih Rekening Tujuan
@@ -270,7 +276,7 @@
                                         </tr>
                                         <tr>
                                             <td></td>
-                                            <td></td>
+                                            <td></td><td></td>
                                             <td style="text-align: right;"><b>Total</b></td>
                                             <td> <b> {{filteredMinu.totalNominal | formatNominal}} </b></td>
                                             <td></td>
