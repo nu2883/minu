@@ -151,11 +151,17 @@
 
                     </div>
                     <div v-if="selectedUsers[0].status == 'pk'" class="container">
-                    <div class="input-group mb-3" v-if="passs === false">
-                        
-                        <input autofocus ref="passwordInput" v-model="password"  type="password" class="form-control" placeholder="Password Plese" aria-label="Recipient's username" aria-describedby="button-ad1don2imun" >
-                        <button @click="cek" class="btn btn-outline-secondary" type="button" id="button-addon2">Ok</button>
-                    </div>
+                        <div class="input-group mb-3" v-if="passs === false">
+                            
+                            <input 
+                                ref="passwordInput" 
+                                v-model="password" 
+                                type="password" 
+                                class="form-control" 
+                                placeholder="Password"
+                            >
+                            <button @click="cek" class="btn btn-outline-secondary" type="button" id="button-addon2">Ok</button>
+                        </div>
 
                     
 
@@ -261,7 +267,7 @@
                                             <th scope="col">Penerima</th>
                                             <th scope="col">Uraian</th>
                                             <th scope="col">Nominal</th>
-                                            <th scope="col">Aksi</th>
+                                            <!-- <th scope="col">Aksi</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -271,8 +277,8 @@
                                             <td>{{min.penerima}}</td>
                                             <td>{{min.uraian}}</td>
                                             <td>{{min.nominal | formatNominal }}</td>
-                                            <td><button class="btn btn-success btn-xs tabel1" data-bs-toggle="modal"
-                                                    data-bs-target="#modalSPBy">Catat SPBy</button></td>
+                                            <!-- <td><button class="btn btn-success btn-xs tabel1" data-bs-toggle="modal"
+                                                    data-bs-target="#modalSPBy">Catat SPBy</button></td> -->
                                         </tr>
                                         <tr>
                                             <td></td>
@@ -672,16 +678,25 @@
                             app.minu = json.data;
                         });
                     },
-                    tambah(user) {
+tambah(user) {
+        this.selectedUsers = [];
+        // Avoid duplicate entries
+        if (!this.selectedUsers.includes(user)) {
+            this.selectedUsers.push(user);
+        }
+        
+        // 1. Mengubah properti data (login menjadi true)
+        this.login = true;
 
-                        this.selectedUsers = [];
-                        // Avoid duplicate entries
-                        if (!this.selectedUsers.includes(user)) {
-                            this.selectedUsers.push(user);
-                        }
-                        this.login = true;
-
-                    },
+        // 2. Menggunakan this.$nextTick untuk menunggu DOM selesai di-update
+        // sebelum memanggil focus()
+        this.$nextTick(() => {
+            // Memastikan ref 'passwordInput' ada dan siap
+            if (this.$refs.passwordInput) {
+                this.$refs.passwordInput.focus();
+            }
+        });
+    },
                     pilihRek(user) {
                         this.selectedRek = [];
                         // Avoid duplicate entries
